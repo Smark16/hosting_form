@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 function UpdateEducation() {
     const navigate = useNavigate()
     const {user} = useContext(AuthContext)
-    const retrieveEducation = `http://127.0.0.1:8000/form/retrieve_education/${user.user_id}`
-    const postEdu = `http://127.0.0.1:8000/form/update_education/${user.user_id}`;
+    const retrieveEducation = `https://institute-application-backend.onrender.com/form/retrieve_education/${user.user_id}`
+    const postEdu = `https://institute-application-backend.onrender.com/form/update_education/${user.user_id}`;
     const [education, setEducation] = useState({
         No_Formal_Education: "",
         PLE: "",
