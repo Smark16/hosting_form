@@ -4,8 +4,8 @@ import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const loginurl = 'http://127.0.0.1:8000/form/';
-const registerurl = 'http://127.0.0.1:8000/form/register';
+const loginurl = 'https://institute-application-backend.onrender.com/form/';
+const registerurl = 'https://institute-application-backend.onrender.com/form/register';
 
 export const AuthContext = createContext();
 
