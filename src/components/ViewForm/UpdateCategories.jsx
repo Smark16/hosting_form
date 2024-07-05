@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 function UpdateCategories() {
     const navigate = useNavigate()
     const { user } = useContext(AuthContext);
-    const retrieveCat = `http://127.0.0.1:8000/form/retrieve_cat/${user.user_id}`
-    const postCategory = `http://127.0.0.1:8000/form/update_cats/${user.user_id}`;
+    const retrieveCat = `https://institute-application-backend.onrender.com/form/retrieve_cat/${user.user_id}`
+    const postCategory = `https://institute-application-backend.onrender.com/form/update_cats/${user.user_id}`;
   const [categories, setCategories] = useState({
     permanent_male: '',
     permanent_female: '',
