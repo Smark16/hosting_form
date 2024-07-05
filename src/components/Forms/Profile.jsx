@@ -5,13 +5,13 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import UseAxios from '../context/UseAxios';
 
-const changePassword = 'http://127.0.0.1:8000/form/change-password/';
+const changePassword = 'https://institute-application-backend.onrender.com/form/change-password/';
 
 function Profile() {
   const { user } = useContext(AuthContext);
   const axiosInstance = UseAxios();
-  const headTeacher = `http://127.0.0.1:8000/form/get_user/${user.user_id}`;
-  const head = `http://127.0.0.1:8000/form/update_user/${user.user_id}`;
+  const headTeacher = `https://institute-application-backend.onrender.com/form/get_user/${user.user_id}`;
+  const head = `https://institute-application-backend.onrender.com/form/update_user/${user.user_id}`;
   const [loggedUser, setLoggedUser] = useState({ username: "", email: "" , first_name:"", last_name:"", date_joined:""});
   const [status, setStatus] = useState(false);
   const [oldPassword, setOldPassword] = useState('');
