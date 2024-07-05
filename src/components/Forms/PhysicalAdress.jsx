@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react'
-const post_address = 'http://127.0.0.1:8000/form/post_physical'
+const post_address = 'https://institute-application-backend.onrender.com/form/post_physical'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
