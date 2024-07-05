@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const postTrade = 'http://127.0.0.1:8000/form/post_trade'; // Update this URL to your actual endpoint
+const postTrade = 'https://institute-application-backend.onrender.com/form/post_trade'; // Update this URL to your actual endpoint
 
 function Trade() {
   const navigate = useNavigate();
