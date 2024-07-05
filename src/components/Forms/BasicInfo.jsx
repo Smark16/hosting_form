@@ -6,7 +6,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { AuthContext } from '../context/AuthContext';
 
-const postBasics = 'http://127.0.0.1:8000/form/post_basics';
+const postBasics = 'https://institute-application-backend.onrender.com/form/post_basics';
 
 function BasicInfo() {
   const { user } = useContext(AuthContext);
