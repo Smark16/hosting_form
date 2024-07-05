@@ -8,9 +8,9 @@ import { useNavigate } from 'react-router-dom';
 function UpdateCapacity() {
     const navigate = useNavigate()
     const {user} = useContext(AuthContext)
-    const post_capacity = `http://127.0.0.1:8000/form/update_capacity/${user.user_id}`;
+    const post_capacity = `https://institute-application-backend.onrender.com/form/update_capacity/${user.user_id}`;
   const [phoneValide, setPhoneValidate] = useState([])
-  const retrieveCapacity = `http://127.0.0.1:8000/form/retrieve_capacity/${user.user_id}`
+  const retrieveCapacity = `https://institute-application-backend.onrender.com/form/retrieve_capacity/${user.user_id}`
 
   const [capacity, setCapacity] = useState({
       Date_Of_Registration: "",

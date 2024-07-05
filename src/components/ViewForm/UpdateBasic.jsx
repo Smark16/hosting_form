@@ -7,8 +7,8 @@ import { AuthContext } from '../context/AuthContext';
 function UpdateBasic() {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
-  const updateBasicsUrl = `http://127.0.0.1:8000/form/update_basic/${user.user_id}`;
-  const retrieveBasicUrl = `http://127.0.0.1:8000/form/retrieve_basic/${user.user_id}`;
+  const updateBasicsUrl = `https://institute-application-backend.onrender.com/form/update_basic/${user.user_id}`;
+  const retrieveBasicUrl = `https://institute-application-backend.onrender.com/form/retrieve_basic/${user.user_id}`;
   const [basic, setBasic] = useState({ NameOfTheIndustry: "", Telephone: "", WebsiteLink: "", ContactEmail: "" });
   const [submit, setSubmit] = useState(false);
   const [showWebsiteLink, setShowWebsiteLink] = useState(false);

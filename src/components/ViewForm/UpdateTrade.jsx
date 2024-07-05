@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom';
 function UpdateTrade() {
     const navigate = useNavigate()
     const {user} = useContext(AuthContext)
-    const retrieveTrade = `http://127.0.0.1:8000/form/retrieve_Trade/${user.user_id}`
-    const postTrade = `http://127.0.0.1:8000/form/update_trade/${user.user_id}`; // Update this URL to your actual endpoint
+    const retrieveTrade = `https://institute-application-backend.onrender.com/form/retrieve_Trade/${user.user_id}`
+    const postTrade = `https://institute-application-backend.onrender.com/form/update_trade/${user.user_id}`; // Update this URL to your actual endpoint
   const [tradeData, setTradeData] = useState({
     targeted_trade: '',
     reason_for_partnership: '',

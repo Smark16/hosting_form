@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const postCategory = 'http://127.0.0.1:8000/form/post_cats';
+const postCategory = 'https://institute-application-backend.onrender.com/form/post_cats';
 
 function Category() {
   const navigate = useNavigate()

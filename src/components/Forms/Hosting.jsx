@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 function Hosting() {
     const navigate = useNavigate()
     const { user } = useContext(AuthContext);
-      const retrieveHosting = `http://127.0.0.1:8000/form/retrieve_hosted/${user.user_id}`
+      const retrieveHosting = `https://institute-application-backend.onrender.com/form/retrieve_hosted/${user.user_id}`
     const [submit, setSubmit] = useState(false);
     const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState({
@@ -85,7 +85,7 @@ function Hosting() {
         }
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/form/all_hosting', formData);
+            const response = await axios.post('https://institute-application-backend.onrender.com/form/all_hosting', formData);
             if(response.status === 201){
                 setSubmit(false);
                ShowSuccessAlert("Submitting Completed");
