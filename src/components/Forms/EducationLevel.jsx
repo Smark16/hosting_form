@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const postEdu = 'http://127.0.0.1:8000/form/post_edu';
+const postEdu = 'https://institute-application-backend.onrender.com/form/post_edu';
 
 function EducationLevel() {
     const navigate = useNavigate()
