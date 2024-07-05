@@ -23,28 +23,28 @@ function ViewDetails() {
   
   const [addData, setAddData] = useState('');
     // basic info urls
-    const retrieveBasic = `http://127.0.0.1:8000/form/retrieve_basic/${user.user_id}`
+    const retrieveBasic = `https://institute-application-backend.onrender.com/form/retrieve_basic/${user.user_id}`
     
     // physical Address
-     const retrievePhysical = `http://127.0.0.1:8000/form/retrieve_physical/${user.user_id}`
+     const retrievePhysical = `https://institute-application-backend.onrender.com/form/retrieve_physical/${user.user_id}`
 
     //  capacity url
-    const retrieveCapacity = `http://127.0.0.1:8000/form/retrieve_capacity/${user.user_id}`
+    const retrieveCapacity = `https://institute-application-backend.onrender.com/form/retrieve_capacity/${user.user_id}`
 
     // education url
-    const retrieveEducation = `http://127.0.0.1:8000/form/retrieve_education/${user.user_id}`
+    const retrieveEducation = `https://institute-application-backend.onrender.com/form/retrieve_education/${user.user_id}`
 
     // employee category
-    const retrieveCat = `http://127.0.0.1:8000/form/retrieve_cat/${user.user_id}`
+    const retrieveCat = `https://institute-application-backend.onrender.com/form/retrieve_cat/${user.user_id}`
 
     // trade view
-    const retrieveTrade = `http://127.0.0.1:8000/form/retrieve_Trade/${user.user_id}`
+    const retrieveTrade = `https://institute-application-backend.onrender.com/form/retrieve_Trade/${user.user_id}`
 
     // hosting Apperentices
-  const retrieveHosting = `http://127.0.0.1:8000/form/retrieve_hosted/${user.user_id}`
+  const retrieveHosting = `https://institute-application-backend.onrender.com/form/retrieve_hosted/${user.user_id}`
 
   // additional info
-  const retrieveAdditional = `http://127.0.0.1:8000/form/retrive_add/${user.user_id}`
+  const retrieveAdditional = `https://institute-application-backend.onrender.com/form/retrive_add/${user.user_id}`
 
     //  fetch basic
     const fetchBasic = async()=>{
