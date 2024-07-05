@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 function UpdateHost() {
     const navigate = useNavigate()
     const { user } = useContext(AuthContext);
+    const retrieveHosting = `http://127.0.0.1:8000/form/retrieve_hosted/${user.user_id}`
     const [submit, setSubmit] = useState(false);
     const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState({
@@ -20,19 +21,9 @@ function UpdateHost() {
 
     const fetchHosting = async () => {
         try {
-            const response = await axios.get('URL_FOR_FETCHING_HOSTING');
+            const response = await axios.get(retrieveHosting);
             const data = response.data;
-            setFormData({
-                has_hosted_apprentices: data.has_hosted_apprentices || '',
-                experience_details: data.experience_details || '',
-                max_apprentices: data.max_apprentices || '',
-                courses: data.courses.map(course => ({
-                    ...course,
-                    user: course.user || user.user_id
-                })) || [{ sn: '', course_name: '', duration: '', user: user.user_id }],
-                support_description: data.support_description || '',
-                user: data.user || user.user_id
-            });
+            setFormData(data);
         } catch (err) {
             console.log(err);
         }

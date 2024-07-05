@@ -88,7 +88,7 @@ body {
 
 @media (max-width: 768px) {
   .register_container {
-    width: 90%; /* Adjust width for smaller screens */
+    width: 100%; /* Adjust width for smaller screens */
   }
 }
 
@@ -614,7 +614,7 @@ form .btn:hover {
     margin-left: 0;
   }
 .nav_img{
-  margin-left: -180px;
+  margin-left: -130px;
 }
   .routes {
     margin-left: 0;
@@ -637,5 +637,14 @@ form .btn:hover {
   }
   .profile_div{
     margin-top: 70px;
+  }
+  .loginForm {
+    border: 1px solid #ccc;
+    width:100%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 20px; 
+    margin-top: 150px;
   }
 }
