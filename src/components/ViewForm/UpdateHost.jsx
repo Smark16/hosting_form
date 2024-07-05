@@ -108,7 +108,7 @@ function UpdateHost() {
         }
 
         try {
-            await axios.put(`http://127.0.0.1:8000/form/update_host/${user.user_id}`, formData);
+            await axios.put(`https://institute-application-backend.onrender.com/form/update_host/${user.user_id}`, formData);
             setSubmit(false);
             ShowSuccessAlert("Updating Completed");
             navigate("/institute/view_details");
