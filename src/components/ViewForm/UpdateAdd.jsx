@@ -6,8 +6,8 @@ import Swal from 'sweetalert2';
 
 function UpdateAdd() {
     const {user} = useContext(AuthContext)
-    const retrieveAdditional = `http://127.0.0.1:8000/form/retrive_add/${user.user_id}`
-    const postAdditional = `http://127.0.0.1:8000/form/update_add/${user.user_id}`;
+    const retrieveAdditional = `https://institute-application-backend.onrender.com/form/retrive_add/${user.user_id}`
+    const postAdditional = `https://institute-application-backend.onrender.com/form/update_add/${user.user_id}`;
   const navigate = useNavigate()
   const [submit, setSubmit] = useState(false);
   const [formData, setFormData] = useState({
