@@ -9,8 +9,8 @@ function UpdatePhysical() {
 const {user} = useContext(AuthContext)
     const [address, setAddress] = useState({ District:"", Constituency:"", Sub_county:"", Parish:"", Village:"", GPS_Points:"" })
     const [submit, setSubmit] = useState(false)
- const retrievePhysical = `http://127.0.0.1:8000/form/retrieve_physical/${user.user_id}`
- const post_address = `http://127.0.0.1:8000/form/update_physical/${user.user_id}`
+ const retrievePhysical = `https://institute-application-backend.onrender.com/form/retrieve_physical/${user.user_id}`
+ const post_address = `https://institute-application-backend.onrender.com/form/update_physical/${user.user_id}`
     const fetchPhysical =  async()=>{
         try{
           const response = await axios(retrievePhysical)
