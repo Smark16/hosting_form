@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import Swal from 'sweetalert2';
 
-const postAdditional = 'http://127.0.0.1:8000/form/post_additional';
+const postAdditional = 'https://institute-application-backend.onrender.com/form/post_additional';
 
 function Additional() {
   const {user} = useContext(AuthContext)
