@@ -149,7 +149,7 @@ const fetchAdditional = async()=>{
     <>
     <p className='text-center reg_word text-success'>VIEW APPLICATION DETAILS</p>
     
-     <div className="container col-md-8 col-sm-12">
+     <div className="container col-sm-12 details">
      <div className="basicInfo mb-4 p-3 border rounded">
         <p className='whuu font-weight-bold' style={{ fontSize: '1.2rem', color: '#333' }}>Basic Information</p>
         <ul className="list-unstyled">
