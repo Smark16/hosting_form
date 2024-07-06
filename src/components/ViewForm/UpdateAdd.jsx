@@ -104,7 +104,6 @@ function UpdateAdd() {
                 type="text"
                 name="fullName"
                 className="form-control"
-                style={{ display: 'inline-block', width: '300px' }}
                 value={formData.fullName}
                 onChange={handleChange}
                 required
@@ -129,7 +128,6 @@ function UpdateAdd() {
                 type="text"
                 name="organizationName"
                 className="form-control"
-                style={{ display: 'inline-block', width: '300px' }}
                 value={formData.organizationName}
                 onChange={handleChange}
                 required

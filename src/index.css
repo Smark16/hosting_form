@@ -306,6 +306,14 @@ ul li p {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
+.add_cont{
+  background-color: #fff;
+  margin: auto;
+  width: 600px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
 textarea{
   resize: none;
   height: 150px;
@@ -634,6 +642,11 @@ form .btn:hover {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+  .add_cont{
+    width:250px;
+    position:absolute;
+    border: 2px solid red;
   }
   .profile_div{
     margin-top: 70px;

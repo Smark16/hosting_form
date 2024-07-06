@@ -17,11 +17,10 @@ function Navbar() {
           <>
           
           <i className="bi bi-list p-2" onClick={handleDisplay}></i>
-          <Link to="/" className="navbar-brand">
+        
           <div className="nav_img">
             <img src={Grow} alt="grow_logo" className="nav-logo" />
           </div>
-          </Link>
           </>
         )}
         {!user && (

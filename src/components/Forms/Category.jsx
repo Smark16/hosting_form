@@ -76,6 +76,7 @@ function Category() {
     <>
       <div className="cat_container col-md-8 col-sm-12">
         <p className="text-center reg_word">CATEGORY OF EMPLOYEES</p>
+        <span>Provide number of workers both male and female under the above categories</span>
         <form onSubmit={handleSubmit}>
          <div className="row cats">
            <div className="col-md-4">

@@ -92,6 +92,7 @@ function EducationLevel() {
         <>
             <div className="container">
                 <p className='text-center reg_word'>EDUCATIONAL LEVEL COUNT</p>
+                <span>Here you will provide total number of employees with such qualifications</span>
                 <form onSubmit={handleSubmit}>
                     <>
                         <div className="mb-3">

@@ -1,13 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import { AuthContext } from '../context/AuthContext';
+import Swal from 'sweetalert2';
+import axios from 'axios';
 import Grow from '../images/grow.png';
+import { useNavigate } from 'react-router-dom';
+
+const registerurl = 'http://127.0.0.1:8000/form/register';
+
 
 function Register() {
-  const { RegisterUser, passwordError, usernameError } = useContext(AuthContext);
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false);
   const [mobileError, setMobileError] = useState("");
+  const [passwordError, setPasswordError] = useState([]);
+  const [usernameError, setUsernameError] = useState([]);
   const [employer, setEmployer] = useState({
     email: "",
     first_name: "",
@@ -29,21 +36,75 @@ function Register() {
   };
 
   const handleSubmit = (e) => {
-    setLoading(false);
     e.preventDefault();
-if(RegisterUser){
-  const { email, first_name, last_name, middle_name, mobile, password, confirm_password } = employer;
-  
+    setLoading(true);
+
+    const { email, first_name, last_name, middle_name, mobile, password, confirm_password } = employer;
+
     // Mobile validation
     const phoneNumber = mobile.replace(/\D/g, ''); // Remove all non-numeric characters
     if (phoneNumber.length > 12) {
       setMobileError("Mobile number cannot exceed 12 digits.");
+      setLoading(false);
       return;
     }
-  RegisterUser(email, first_name, last_name, middle_name, mobile, password, confirm_password);
-}
-   
-    setLoading(true);
+
+    axios.post(registerurl, {
+      email,
+      first_name,
+      last_name,
+      middle_name,
+      mobile,
+      password,
+      confirm_password
+    }).then(response => {
+      console.log(response);
+      if (response.status === 201) {
+        Swal.fire({
+          title: "Registration successful, you can Login now",
+          icon: "success",
+          timer: 6000,
+          toast: true,
+          position: 'top-right',
+          timerProgressBar: true,
+          showConfirmButton: true,
+        });
+        navigate("/");
+      } else {
+        Swal.fire({
+          title: `An Error occurred: ${response.status}`,
+          icon: "error",
+          toast: true,
+          timer: 6000,
+          position: "top-right",
+          timerProgressBar: true,
+          showConfirmButton: true,
+        });
+      }
+    }).catch(error => {
+      console.error("Registration error:", error);
+      if (error.response && error.response.data && error.response.data.password) {
+        const passwordErrors = error.response.data.password;
+        console.log("Password error:", passwordErrors);
+        setPasswordError(passwordErrors);
+      }
+      if (error.response && error.response.data && error.response.data.email) {
+        const usernameErrors = error.response.data.email;
+        console.log("Email error:", usernameErrors);
+        setUsernameError(usernameErrors);
+      }
+      Swal.fire({
+        title: "There was a server issue",
+        icon: "error",
+        toast: true,
+        timer: 6000,
+        position: "top-right",
+        timerProgressBar: true,
+        showConfirmButton: true,
+      });
+    }).finally(() => {
+      setLoading(false);
+    });
   };
 
   return (
@@ -152,7 +213,7 @@ if(RegisterUser){
         </div>
         <div className="col-12">
           <button className="btn-register text-white text-center p-2" type="submit">
-            {loading ? 'Registering' : 'Register'}
+            {loading ? 'Registering...' : 'Register'}
           </button>
         </div>
       </form>

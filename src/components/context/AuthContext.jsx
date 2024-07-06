@@ -4,8 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-const loginurl = 'https://institute-application-backend.onrender.com/form/';
-const registerurl = 'https://institute-application-backend.onrender.com/form/register';
+const loginurl = 'http://127.0.0.1:8000/form/';
 
 export const AuthContext = createContext();
 
@@ -46,45 +45,7 @@ export const AuthProvider = ({ children }) => {
         // showErrorAlert("There was a server issue");
       });
   };
-  const RegisterUser = async (email, first_name, last_name, middle_name, mobile, password, confirm_password) => {
-    setLoading(true);
-    axios.post(registerurl, {
-      email,
-      first_name,
-      last_name,
-      middle_name,
-      mobile,
-      password,
-      confirm_password
-    }).then(response => {
-      console.log(response);
-      if (response.status === 201) {
-        showSuccessAlert("Registration successful, you can Login now");
-        navigate("/");
-      } else {
-        showErrorAlert(`An Error occurred: ${response.status}`);
-      }
-    }).catch(error => {
-      console.error("Registration error:", error);
-      if (error.response && error.response.data && error.response.data.password) {
-        const passwordErrors = error.response.data.password;
-        console.log("Password error:", passwordErrors);
-        setPasswordError(passwordErrors);
-      }
-      if (error.response && error.response.data && error.response.data.email) {
-        const usernameErrors = error.response.data.email;
-        console.log("Email error:", usernameErrors );
-        setUsernameError(usernameErrors);
-      }
-      showErrorAlert("There was a server issue");
-    }).finally(() => {
-      setLoading(false);
-    });
-  };
   
-  
-
-
   const showSuccessAlert = (message) => {
     Swal.fire({
       title: message,
@@ -121,7 +82,7 @@ export const AuthProvider = ({ children }) => {
   const contextData = {
     user, setUser,
     authTokens, setAuthTokens,
-    loginUser, RegisterUser,
+    loginUser, 
     showSuccessAlert,
     handleDisplay, display, setDisplay,
     loading, passwordError, usernameError,

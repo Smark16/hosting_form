@@ -62,7 +62,7 @@ function Additional() {
     formData.organizationName !== '';
 
   return (
-    <div className="container col-md-6 col-sm-12">
+    <div className="container">
       <p className='text-center reg_word'>ADDITIONAL INFORMATION</p>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -91,7 +91,6 @@ function Additional() {
                 type="text"
                 name="fullName"
                 className="form-control"
-                style={{ display: 'inline-block', width: '300px' }}
                 value={formData.fullName}
                 onChange={handleChange}
                 required
@@ -116,7 +115,6 @@ function Additional() {
                 type="text"
                 name="organizationName"
                 className="form-control"
-                style={{ display: 'inline-block', width: '300px' }}
                 value={formData.organizationName}
                 onChange={handleChange}
                 required
