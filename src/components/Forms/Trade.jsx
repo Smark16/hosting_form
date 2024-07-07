@@ -330,7 +330,7 @@ function Trade() {
         </div>
 
         <button className="text-white p-2 text-center w-100 btn-register" type="submit">
-          {submit ? 'Submitting...' : 'Submit'}
+          {submit ? 'Submitting...' : 'Submit and continue'}
         </button>
       </form>
     </div>

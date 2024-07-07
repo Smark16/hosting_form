@@ -226,7 +226,7 @@ function Capacity() {
           )}
 
           <button className='text-white p-2 text-center w-100 btn-register bt' type='submit' disabled={isRegistered === ''}>
-            {submit ? 'Submitting...' : 'Submit'}
+            {submit ? 'Submitting...' : 'Submit and continue'}
           </button>
         </form>
       </div>

@@ -147,7 +147,6 @@ function Register() {
             name="middle_name"
             value={employer.middle_name}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="col-md-6">
