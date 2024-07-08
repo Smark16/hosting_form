@@ -13,6 +13,7 @@ function Register() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false);
   const [mobileError, setMobileError] = useState("");
+  const [mobile, setMobile] = useState([])
   const [passwordError, setPasswordError] = useState([]);
   const [usernameError, setUsernameError] = useState([]);
   const [employer, setEmployer] = useState({
@@ -92,6 +93,9 @@ function Register() {
         const usernameErrors = error.response.data.email;
         console.log("Email error:", usernameErrors);
         setUsernameError(usernameErrors);
+      }
+      if(error.response.data.mobile){
+        setMobile(error.response.data.mobile)
       }
       Swal.fire({
         title: "There was a server issue",
@@ -179,6 +183,9 @@ function Register() {
             required
           />
           {mobileError && <p className="text-danger">{mobileError}</p>}
+          {mobile && mobile.map(err =>{
+            <p className='text-danger'>Enter valid phone number</p>
+          })}
         </div>
         <div className="col-md-6">
           <label htmlFor="password" className="form-label">Password*</label>

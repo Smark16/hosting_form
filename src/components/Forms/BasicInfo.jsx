@@ -13,6 +13,7 @@ function BasicInfo() {
   const [basic, setBasic] = useState({ NameOfTheIndustry: "", Telephone: "", WebsiteLink: "", ContactEmail: "" });
   const [submit, setSubmit] = useState(false);
   const [showWebsiteLink, setShowWebsiteLink] = useState(false);
+  const [mobile, setMobile] = useState([])
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -53,7 +54,10 @@ function BasicInfo() {
             timerProgressBar: true,
             showConfirmButton: true,
           });
-        } else {
+        } else if(err.response.data.mobile){
+          setMobile(err.response.data.mobile)
+        }
+        else {
           console.log(err);
         }
         setSubmit(false);
@@ -106,6 +110,9 @@ function BasicInfo() {
             containerClass="form-control p-0"
             inputClass="w-100 border-0"
           />
+            {mobile && mobile.map(err =>{
+            <p className='text-danger'>Enter valid phone number</p>
+          })}
         </div>
         <div className="mb-3">
           <label htmlFor="formGroupExampleInput2" className="form-label">Does Your Business Have Website Link</label>
