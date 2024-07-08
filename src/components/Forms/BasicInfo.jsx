@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { AuthContext } from '../context/AuthContext';
@@ -10,10 +10,15 @@ const postBasics = 'https://institute-application-backend.onrender.com/form/post
 
 function BasicInfo() {
   const { user } = useContext(AuthContext);
-  const [basic, setBasic] = useState({ NameOfTheIndustry: "", Telephone: "", WebsiteLink: "", ContactEmail: "" });
+  const [basic, setBasic] = useState({
+    NameOfTheIndustry: "",
+    Telephone: "",
+    WebsiteLink: "",
+    ContactEmail: ""
+  });
   const [submit, setSubmit] = useState(false);
   const [showWebsiteLink, setShowWebsiteLink] = useState(false);
-  const [mobile, setMobile] = useState([])
+  const [mobileErrors, setMobileErrors] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -44,20 +49,21 @@ function BasicInfo() {
         }
       })
       .catch(err => {
-        if (err.response && err.response.status === 400 && err.response.data.error) {
-          Swal.fire({
-            title: err.response.data.error,
-            icon: "error",
-            timer: 6000,
-            toast: true,
-            position: 'top',
-            timerProgressBar: true,
-            showConfirmButton: true,
-          });
-        } else if(err.response.data.mobile){
-          setMobile(err.response.data.mobile)
-        }
-        else {
+        if (err.response) {
+          if (err.response.status === 400 && err.response.data.error) {
+            Swal.fire({
+              title: err.response.data.error,
+              icon: "error",
+              timer: 6000,
+              toast: true,
+              position: 'top',
+              timerProgressBar: true,
+              showConfirmButton: true,
+            });
+          } else if (err.response.data.mobile) {
+            setMobileErrors(err.response.data.mobile);
+          }
+        } else {
           console.log(err);
         }
         setSubmit(false);
@@ -82,7 +88,7 @@ function BasicInfo() {
 
   return (
     <div className="container">
-      <p className='text-center reg_word'>BASIC INFORMATION</p>
+      <p className="text-center reg_word">BASIC INFORMATION</p>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="formGroupExampleInput" className="form-label">Name Of The Enterprize/Industry</label>
@@ -90,7 +96,7 @@ function BasicInfo() {
             type="text"
             className="form-control"
             id="formGroupExampleInput"
-            name='NameOfTheIndustry'
+            name="NameOfTheIndustry"
             value={basic.NameOfTheIndustry}
             onChange={handleChange}
             required
@@ -99,7 +105,7 @@ function BasicInfo() {
         <div className="mb-3">
           <label htmlFor="formGroupExampleInput2" className="form-label">Telephone Contact</label>
           <PhoneInput
-            country={'ug'}
+            country="ug"
             value={basic.Telephone}
             onChange={handlePhoneChange}
             inputProps={{
@@ -110,9 +116,9 @@ function BasicInfo() {
             containerClass="form-control p-0"
             inputClass="w-100 border-0"
           />
-            {mobile && mobile.map(err =>{
-            <p className='text-danger'>Enter valid phone number</p>
-          })}
+          {mobileErrors && mobileErrors.map((err, index) => (
+            <p key={index} className="text-danger">Enter valid phone number</p>
+          ))}
         </div>
         <div className="mb-3">
           <label htmlFor="formGroupExampleInput2" className="form-label">Does Your Business Have Website Link</label>
@@ -120,8 +126,8 @@ function BasicInfo() {
             <li>
               <input
                 type="radio"
-                name='websiteOption'
-                value='yes'
+                name="websiteOption"
+                value="yes"
                 onChange={() => handleWebsiteLinkOption('yes')}
                 required
               />
@@ -130,8 +136,8 @@ function BasicInfo() {
             <li>
               <input
                 type="radio"
-                name='websiteOption'
-                value='no'
+                name="websiteOption"
+                value="no"
                 onChange={() => handleWebsiteLinkOption('no')}
                 required
               />
@@ -146,7 +152,7 @@ function BasicInfo() {
               type="text"
               className="form-control"
               id="formGroupExampleInput2"
-              name='WebsiteLink'
+              name="WebsiteLink"
               value={basic.WebsiteLink}
               onChange={handleChange}
               required
@@ -159,13 +165,13 @@ function BasicInfo() {
             type="email"
             className="form-control"
             id="formGroupExampleInput2"
-            name='ContactEmail'
+            name="ContactEmail"
             value={basic.ContactEmail}
             onChange={handleChange}
             required
           />
         </div>
-        <button className='text-white p-2 text-center w-100 btn-register' type='submit'>
+        <button className="text-white p-2 text-center w-100 btn-register" type="submit" disabled={submit}>
           {submit ? 'Submitting...' : 'Submit and continue'}
         </button>
       </form>
