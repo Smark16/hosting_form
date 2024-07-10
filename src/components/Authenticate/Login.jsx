@@ -63,7 +63,7 @@ autoComplete="off"
  <div className='mt-3'>   
 <TextField 
 id="outlined-basic" 
-label="username" 
+label="username/Email" 
 InputProps={{
 startAdornment: (
   <InputAdornment position="start">
