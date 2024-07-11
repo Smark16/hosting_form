@@ -6,7 +6,7 @@ import axios from 'axios';
 import Grow from '../images/grow.png';
 import { useNavigate } from 'react-router-dom';
 
-const registerurl = ' http://127.0.0.1:8000/form/register';
+const registerurl = 'https://institute-application-backend.onrender.com/form/register';
 
 
 function Register() {
