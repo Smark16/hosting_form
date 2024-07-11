@@ -6,7 +6,7 @@ import axios from 'axios';
 import Grow from '../images/grow.png';
 import { useNavigate } from 'react-router-dom';
 
-const registerurl = 'https://institute-application-backend.onrender.com/form/register';
+const registerurl = ' http://127.0.0.1:8000/form/register';
 
 
 function Register() {
@@ -15,7 +15,7 @@ function Register() {
   const [mobileError, setMobileError] = useState("");
   const [mobile, setMobile] = useState([])
   const [passwordError, setPasswordError] = useState([]);
-  const [usernameError, setUsernameError] = useState([]);
+  const [usernameError, setUsernameError] = useState('');
   const [employer, setEmployer] = useState({
     email: "",
     first_name: "",
@@ -89,8 +89,8 @@ function Register() {
         console.log("Password error:", passwordErrors);
         setPasswordError(passwordErrors);
       }
-      if (error.response && error.response.data && error.response.data.email) {
-        const usernameErrors = error.response.data.email;
+      if (error.response && error.response.data && error.response.data.username) {
+        const usernameErrors = error.response.data.username;
         console.log("Email error:", usernameErrors);
         setUsernameError(usernameErrors);
       }
@@ -98,7 +98,7 @@ function Register() {
         setMobile(error.response.data.mobile)
       }
       Swal.fire({
-        title: "There was a server issue",
+        title: "Check If All credentials are correctly filled in",
         icon: "error",
         toast: true,
         timer: 6000,
@@ -164,9 +164,7 @@ function Register() {
             onChange={handleChange}
             required
           />
-          {usernameError && usernameError.map((err, index) => (
-            <p className="text-danger" key={index}>{err}</p>
-          ))}
+          {usernameError && <p className='text-danger'>{usernameError}</p>}
         </div>
         <div className="col-md-6">
           <label htmlFor="mobile" className="form-label">Mobile*</label>
