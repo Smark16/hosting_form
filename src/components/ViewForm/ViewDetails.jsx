@@ -11,15 +11,20 @@ function ViewDetails() {
     const [capacity, setCapacity] = useState('')
     const [education, setEducation] = useState('');
     const [categories, setCategories] = useState('');
-    const [tradeData, setTradeData] = useState('');
-    const [formData, setFormData] = useState({
-      has_hosted_apprentices: '',
-      experience_details: '',
-      max_apprentices: '',
-      courses: [{ sn: '', course_name: '', duration: '', user: user.user_id }],
-      support_description: '',
+    const [tradeData, setTradeData] = useState({
+      targeted_trade: '',
+      reason_for_partnership: '',
+      enterprise_size: '',
+      dev_stage: '',
+      track_record: '',
+      expertise: '',
+      staff_mentoring: '',
+      infrastructure: '',
+      sector_description: '',
+      courses: [{ module_code: '', module_name: '', duration: '', user: user.user_id }],
       user: user.user_id
-  });
+    });
+    const [formData, setFormData] = useState('');
   
   const [addData, setAddData] = useState('');
     // basic info urls
@@ -76,6 +81,7 @@ const fetchCapacity = async()=>{
   try{
      const response = await axios(retrieveCapacity)
      const data = response.data
+     console.log(data)
      setCapacity(data)
   }catch(err){
     console.log(err)
@@ -104,6 +110,7 @@ const fetchCats = async()=>{
   }
 }
 
+// fetch Trade
 const fetchTrade = async()=>{
   try{
   const response = await axios(retrieveTrade)
@@ -225,6 +232,12 @@ const fetchAdditional = async()=>{
                 <h5 style={{ fontSize: '1rem', color: '#555' }}>Date_Of_Registration:</h5>
                 <span style={{ fontSize: '1rem', color: '#777' }}>{capacity.Date_Of_Registration}</span>
               </li>
+
+              <li className="mb-2">
+                <h5 style={{ fontSize: '1rem', color: '#555' }}>Certificate:</h5>
+                <span style={{ fontSize: '1rem', color: '#777' }}>{capacity.Certificate}</span>
+              </li>
+
               <li className="mb-2">
                 <h5 style={{ fontSize: '1rem', color: '#555' }}>Registration_Number:</h5>
                 <span style={{ fontSize: '1rem', color: '#777' }}>{capacity.Registration_Number}</span>
@@ -342,24 +355,15 @@ const fetchAdditional = async()=>{
               </li>
 
               <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}> self_employed_male:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{categories.self_employed_male}</span>
+                <h5 style={{ fontSize: '1rem', color: '#555' }}>Male Consultants:</h5>
+                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{categories.consultants_male}</span>
               </li>
 
               <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}>self_employed_female:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{categories.self_employed_female}</span>
+                <h5 style={{ fontSize: '1rem', color: '#555' }}>Female Consultants:</h5>
+                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{categories.consultants_female}</span>
               </li>
 
-              <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}>other_male:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{categories.other_male}</span>
-              </li>
-
-              <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}>other_female:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{categories.other_female}</span>
-              </li>
             </ul>
           
                 <Link to={`/institute/update_education_category/${categories.id}`} className='text-white Link'>
@@ -377,6 +381,35 @@ const fetchAdditional = async()=>{
                 <h5 style={{ fontSize: '1rem', color: '#555' }}>targeted_trade :</h5>
                 <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{tradeData.targeted_trade}</span>
               </li>
+               
+              <p className='whuu'>Courses Description</p>
+               <table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Code</th>
+      <th scope="col">Module Name</th>
+      <th scope="col">Duration</th>
+    </tr>
+  </thead>
+  <tbody>
+    {tradeData.courses.map((course, index) =>{
+      const {module_code, module_name, duration} = course
+      return (
+        <>
+        <tr>
+      <th scope="row">{index + 1}</th>
+      <td>{module_code}</td>
+      <td>{module_name}</td>
+      <td>{duration} days</td>
+    </tr>
+        </>
+      )
+    })}
+    
+  </tbody>
+</table>
+
               <li className="mb-2">
                 <h5 style={{ fontSize: '1rem', color: '#555' }}> reason_for_partnership:</h5>
                 <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{tradeData.reason_for_partnership}</span>
@@ -440,33 +473,6 @@ const fetchAdditional = async()=>{
                 <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{formData.support_description}</span>
               </li>
 
-               <p className='whuu'>Courses Description</p>
-               <table class="table table-striped table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">SN</th>
-      <th scope="col">Course Name</th>
-      <th scope="col">Duration</th>
-    </tr>
-  </thead>
-  <tbody>
-    {formData.courses.map((course, index) =>{
-      const {sn, course_name, duration} = course
-      return (
-        <>
-        <tr>
-      <th scope="row">{index + 1}</th>
-      <td>{sn}</td>
-      <td>{course_name}</td>
-      <td>{duration}</td>
-    </tr>
-        </>
-      )
-    })}
-    
-  </tbody>
-</table>
             </ul>
                 <Link to={`/institute/update_hosting_apperentices/${formData.id}`} className='text-white Link'>
                 <button className='text-white p-2 text-center w-100 bg-success' type='submit' style={{ border: 'none', borderRadius: '4px' }}>

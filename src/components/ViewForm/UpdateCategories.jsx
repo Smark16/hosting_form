@@ -17,10 +17,8 @@ function UpdateCategories() {
     contract_female: '',
     casual_male: '',
     casual_female: '',
-    self_employed_male: '',
-    self_employed_female: '',
-    other_male: '',
-    other_female: '',
+    consultants_male: '',
+    consultants_female: '',
     user:user.user_id
   });
   const fetchCats = async()=>{
@@ -108,27 +106,27 @@ function UpdateCategories() {
            </div>
 
            <div className="col-md-4">
-           <p className='whuu'>Self Employed Workers</p>
+           <p className='whuu'>Consultants</p>
            <div className="mb-3">
-          <label htmlFor="formGroupExampleInput" className="form-label">self_employed Male</label>
+          <label htmlFor="formGroupExampleInput" className="form-label">Male Consultants</label>
           <input
             type="number"
             className="form-control"
             id="formGroupExampleInput"
-            name='self_employed_male'
-            value={categories.self_employed_male}
+            name='consultants_male'
+            value={categories.consultants_male}
             onChange={handleChange}
             required
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="formGroupExampleInput" className="form-label">self_employed Female</label>
+          <label htmlFor="formGroupExampleInput" className="form-label">Female Consultants</label>
           <input
             type="number"
             className="form-control"
             id="formGroupExampleInput"
-            name='self_employed_female'
-            value={categories.self_employed_female}
+            name='consultants_female'
+            value={categories.consultants_female}
             onChange={handleChange}
             required
           />
@@ -194,35 +192,6 @@ function UpdateCategories() {
            </div>
          </div>
 
-         <div className="row cats">
-           <div className="col-md-4">
-           <p className='whuu'>Other Workers</p>
-           <div className="mb-3">
-          <label htmlFor="formGroupExampleInput" className="form-label">Other_male</label>
-          <input
-            type="number"
-            className="form-control"
-            id="formGroupExampleInput"
-            name='other_male'
-            value={categories.other_male}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="formGroupExampleInput" className="form-label">Other_female</label>
-          <input
-            type="number"
-            className="form-control"
-            id="formGroupExampleInput"
-            name='other_female'
-            value={categories.other_female}
-            onChange={handleChange}
-            required
-          />
-        </div>
-           </div>
-         </div>
           <button className="text-white p-2 text-center w-100 btn-register" type="submit">
             {submit ? 'Updating...' : 'Update'}
           </button>

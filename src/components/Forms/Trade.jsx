@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../context/AuthContext';
@@ -9,6 +9,8 @@ const postTrade = 'https://institute-application-backend.onrender.com/form/post_
 function Trade() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [tradeData, setTradeData] = useState({
     targeted_trade: '',
     reason_for_partnership: '',
@@ -18,27 +20,70 @@ function Trade() {
     expertise: '',
     staff_mentoring: '',
     infrastructure: '',
+    sector_description: '',
+    courses: [{ module_code: '', module_name: '', duration: '', user: user.user_id }],
     user: user.user_id
   });
   const [submit, setSubmit] = useState(false);
+  const [errors, setErrors] = useState({});
 
-  const handleSelect = (e)=>{
-    const selected = e.target.value
-    setTradeData({...tradeData,  targeted_trade:selected})
-  }
+  useEffect(() => {
+    if (startDate && endDate) {
+      const totalDays = Math.ceil((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24));
+      setTradeData((prevData) => {
+        const newCourses = prevData.courses.map((course) => ({
+          ...course,
+          duration: totalDays
+        }));
+        return { ...prevData, courses: newCourses };
+      });
+    }
+  }, [startDate, endDate]);
+
+  const handleSelect = (e) => {
+    const selected = e.target.value;
+    setTradeData({ ...tradeData, targeted_trade: selected });
+  };
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value } = e.target;
     setTradeData({ ...tradeData, [name]: value });
-    // if (type === 'checkbox') {
-    //   setTradeData({ ...tradeData, [name]: checked ? value : '' });
-    // } else {
-    // }
+  };
+
+  const handleCourseChange = (index, e) => {
+    const { name, value } = e.target;
+    const newCourses = [...tradeData.courses];
+    newCourses[index][name] = value;
+    setTradeData({ ...tradeData, courses: newCourses });
+    setErrors({ ...errors, [`course_${index}`]: '' });
+  };
+
+  const addCourse = () => {
+    const newCourse = { module_code: '', module_name: '', duration: '', user: user.user_id };
+    if (tradeData.courses.some(course => Object.values(course).some(value => !value))) {
+      setErrors({ ...errors, addCourse: 'Please fill out all course fields before adding a new one.' });
+    } else {
+      setTradeData({ ...tradeData, courses: [...tradeData.courses, newCourse] });
+      setErrors({ ...errors, addCourse: '' });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmit(true);
+
+    const validationErrors = {};
+    tradeData.courses.forEach((course, index) => {
+      if (!course.module_code || !course.module_name || !course.duration) {
+        validationErrors[`course_${index}`] = 'Please fill out all course fields.';
+      }
+    });
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      setSubmit(false);
+      return;
+    }
 
     axios.post(postTrade, tradeData)
       .then(response => {
@@ -53,7 +98,10 @@ function Trade() {
             track_record: '',
             expertise: '',
             staff_mentoring: '',
-            infrastructure: ''
+            infrastructure: '',
+            sector_description: '',
+            courses: [{ module_code: '', module_name: '', duration: '', user: user.user_id }],
+            user: user.user_id
           });
           navigate("/institute/hosting_apprentices");
         }
@@ -114,7 +162,7 @@ function Trade() {
           </label>
           <div>
             <select onChange={handleSelect} className="form-control">
-              <option>Choose Enterprize</option>
+              <option>Choose Enterprise</option>
               <option value="Hotel and Hospitality">Hotel and Hospitality</option>
               <option value="Food and agro-processing">Food and agro-processing</option>
               <option value="Cosmetology">Cosmetology</option>
@@ -127,6 +175,96 @@ function Trade() {
             </select>
           </div>
         </div>
+
+        {tradeData.targeted_trade && (
+          <div className="mb-3">
+            <label htmlFor="sector_description" className="form-label">
+              Describe more on the <b>{tradeData.targeted_trade}</b> sector(s) being offered
+            </label>
+            <textarea
+              name="sector_description"
+              className="form-control"
+              value={tradeData.sector_description}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        )}
+
+        {tradeData.courses.map((course, index) => (
+          <div key={index} className="mb-3">
+            <p className='whuu'>Work Placement/apprenticeship Courses to offer</p>
+            <div className='mt-3'>
+              <label htmlFor={`module_code_${index}`} className="form-label">
+                <b>Module Code (Optional)</b>
+              </label>
+              <input
+                type="text"
+                name="module_code"
+                className="form-control"
+                value={course.module_code}
+                onChange={(e) => handleCourseChange(index, e)}
+                required
+              />
+            </div>
+
+            <div className='mt-3'>
+              <label htmlFor={`module_name_${index}`} className="form-label">
+                <b>Module/Activity</b>
+              </label>
+              <input
+                type="text"
+                name="module_name"
+                className="form-control"
+                value={course.module_name}
+                onChange={(e) => handleCourseChange(index, e)}
+                required
+              />
+            </div>
+
+            <div className='mt-3'>
+              <label htmlFor={`duration_${index}`} className="form-label">
+                <b>Duration</b>
+              </label>
+              <div className="dates">
+                start date
+                <input
+                  type="date"
+                  placeholder='Start Date'
+                  onChange={(e) => setStartDate(e.target.value)}
+                  className='form-control'
+                  required
+                />
+                End date
+                <input
+                  type="date"
+                  placeholder='End Date'
+                  onChange={(e) => setEndDate(e.target.value)}
+                  className='form-control'
+                  required
+                />
+              
+                <input
+                  type="text"
+                  name="duration"
+                  className="form-control mt-2"
+                  value={course.duration}
+                  onChange={(e) => handleCourseChange(index, e)}
+                  readOnly
+                  placeholder='totalDays'
+                  required
+                />
+                
+              </div>
+            </div>
+            {errors[`course_${index}`] && <span className="text-danger">{errors[`course_${index}`]}</span>}
+          </div>
+        ))}
+
+        <button type="button" onClick={addCourse}>
+          Add Module
+        </button>
+        {errors.addCourse && <span className="text-danger">{errors.addCourse}</span>}
 
         <div className="mb-3">
           <p className='whuu'>Partnership and Willingness</p>
@@ -150,7 +288,7 @@ function Trade() {
           <div>
             <label>
               <input
-                type="checkbox"
+                type="radio"
                 name="enterprise_size"
                 value="Micro"
                 checked={tradeData.enterprise_size === "Micro"}
@@ -160,7 +298,7 @@ function Trade() {
             </label>
             <label>
               <input
-                type="checkbox"
+                type="radio"
                 name="enterprise_size"
                 value="Small"
                 checked={tradeData.enterprise_size === "Small"}
@@ -170,7 +308,7 @@ function Trade() {
             </label>
             <label>
               <input
-                type="checkbox"
+                type="radio"
                 name="enterprise_size"
                 value="Medium"
                 checked={tradeData.enterprise_size === "Medium"}
@@ -180,7 +318,7 @@ function Trade() {
             </label>
             <label>
               <input
-                type="checkbox"
+                type="radio"
                 name="enterprise_size"
                 value="Large"
                 checked={tradeData.enterprise_size === "Large"}
@@ -198,7 +336,7 @@ function Trade() {
           <div>
             <label>
               <input
-                type="checkbox"
+                type="radio"
                 name="dev_stage"
                 value="Early-stage"
                 checked={tradeData.dev_stage === "Early-stage"}
@@ -208,7 +346,7 @@ function Trade() {
             </label>
             <label>
               <input
-                type="checkbox"
+                type="radio"
                 name="dev_stage"
                 value="Growth-stage"
                 checked={tradeData.dev_stage === "Growth-stage"}
@@ -218,7 +356,7 @@ function Trade() {
             </label>
             <label>
               <input
-                type="checkbox"
+                type="radio"
                 name="dev_stage"
                 value="Mature-stage"
                 checked={tradeData.dev_stage === "Mature-stage"}

@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import {AuthContext} from '../context/AuthContext'
+import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-
 function UpdateTrade() {
-    const navigate = useNavigate()
-    const {user} = useContext(AuthContext)
-    const retrieveTrade = `https://institute-application-backend.onrender.com/form/retrieve_Trade/${user.user_id}`
-    const postTrade = `https://institute-application-backend.onrender.com/form/update_trade/${user.user_id}`; // Update this URL to your actual endpoint
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const retrieveTrade = `https://institute-application-backend.onrender.com/form/retrieve_Trade/${user.user_id}`;
+  const postTrade = `https://institute-application-backend.onrender.com/form/update_trade/${user.user_id}`; // Update this URL to your actual endpoint
   const [tradeData, setTradeData] = useState({
     targeted_trade: '',
     reason_for_partnership: '',
@@ -19,33 +20,66 @@ function UpdateTrade() {
     expertise: '',
     staff_mentoring: '',
     infrastructure: '',
-    user:user.user_id
+    sector_description:'',
+    courses: [{ module_code: '', module_name: '', duration: '', user: user.user_id }],
+    user: user.user_id
   });
-  const fetchTrade = async()=>{
-    try{
-    const response = await axios(retrieveTrade)
-    const data = response.data
-    setTradeData(data)
-    }catch(err){
-      console.log(err)
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      const totalDays = Math.ceil((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24));
+      setTradeData((prevData) => {
+        const newCourses = prevData.courses.map((course) => ({
+          ...course,
+          duration: totalDays
+        }));
+        return { ...prevData, courses: newCourses };
+      });
     }
-  }
-  useEffect(()=>{
-    fetchTrade()
-  },[])
+  }, [startDate, endDate]);
+  
+  const fetchTrade = async () => {
+    try {
+      const response = await axios(retrieveTrade);
+      const data = response.data;
+      setTradeData(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  useEffect(() => {
+    fetchTrade();
+  }, []);
+  
   const [submit, setSubmit] = useState(false);
+
+  const handleSelect = (e) => {
+    const selected = e.target.value;
+    setTradeData({ ...tradeData, targeted_trade: selected });
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    setTradeData({ ...tradeData, [name]: type === 'checkbox' ? checked : value });
+  };
 
-    if (type === 'checkbox') {
-      if (name === 'targeted_trade' || name === 'enterprise_size' || name === 'dev_stage') {
-        setTradeData({ ...tradeData, [name]: checked ? value : '' });
-      } else {
-        setTradeData({ ...tradeData, [name]: checked });
-      }
+  const handleCourseChange = (index, e) => {
+    const { name, value } = e.target;
+    const newCourses = [...tradeData.courses];
+    newCourses[index][name] = value;
+    setTradeData({ ...tradeData, courses: newCourses });
+    setErrors({ ...errors, [`course_${index}`]: '' });
+  };
+
+  const addCourse = () => {
+    const newCourse = { module_code: '', module_name: '', duration: '', user: user.user_id };
+    if (tradeData.courses.some(course => Object.values(course).some(value => !value))) {
+      setErrors({ ...errors, addCourse: 'Please fill out all course fields before adding a new one.' });
     } else {
-      setTradeData({ ...tradeData, [name]: value });
+      setTradeData({ ...tradeData, courses: [...tradeData.courses, newCourse] });
+      setErrors({ ...errors, addCourse: '' });
     }
   };
 
@@ -66,6 +100,7 @@ function UpdateTrade() {
             track_record: '',
             expertise: '',
             staff_mentoring: '',
+            sector_description: '',
             infrastructure: ''
           });
           navigate("/institute/view_details");
@@ -99,69 +134,108 @@ function UpdateTrade() {
               Choose targeted priority trades Enterprise/Industry is involved in?
             </label>
             <div>
-              <label>
-                <input
-                  type="checkbox"
-                  name="targeted_trade"
-                  value="Hotel and Hospitality"
-                  checked={tradeData.targeted_trade === "Hotel and Hospitality"}
-                  onChange={handleChange}
-                />
-                Hotel and Hospitality
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="targeted_trade"
-                  value="Food and agro-processing"
-                  checked={tradeData.targeted_trade === "Food and agro-processing"}
-                  onChange={handleChange}
-                />
-                Food and agro-processing
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="targeted_trade"
-                  value="Cosmetology"
-                  checked={tradeData.targeted_trade === "Cosmetology"}
-                  onChange={handleChange}
-                />
-                Cosmetology
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="targeted_trade"
-                  value="Tailoring and textiles"
-                  checked={tradeData.targeted_trade === "Tailoring and textiles"}
-                  onChange={handleChange}
-                />
-                Tailoring and textiles
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="targeted_trade"
-                  value="Welding and Metal fabrication"
-                  checked={tradeData.targeted_trade === "Welding and Metal fabrication"}
-                  onChange={handleChange}
-                />
-                Welding and Metal fabrication
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  name="targeted_trade"
-                  value="Electrical and electronics"
-                  checked={tradeData.targeted_trade === "Electrical and electronics"}
-                  onChange={handleChange}
-                />
-                Electrical and electronics
-              </label>
+              <select onChange={handleSelect} className="form-control" value={tradeData.targeted_trade}>
+                <option>Choose Enterprise</option>
+                <option value="Hotel and Hospitality">Hotel and Hospitality</option>
+                <option value="Food and agro-processing">Food and agro-processing</option>
+                <option value="Cosmetology">Cosmetology</option>
+                <option value="Tailoring and textiles">Tailoring and textiles</option>
+                <option value="Welding and Metal fabrication">Welding and Metal fabrication</option>
+                <option value="Electrical and electronics">Electrical and electronics</option>
+                <option value="Performing Arts">Performing Arts</option>
+                <option value="Construction">Construction</option>
+                <option value="Mechanical">Mechanical</option>
+              </select>
             </div>
           </div>
 
+          {tradeData.targeted_trade && (
+          <div className="mb-3">
+            <label htmlFor="sector_description" className="form-label">
+              Describe more on the <b>{tradeData.targeted_trade}</b> sector(s) being offered
+            </label>
+            <textarea
+              name="sector_description"
+              className="form-control"
+              value={tradeData.sector_description}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        )}
+
+{tradeData.courses.map((course, index) => (
+          <div key={index} className="mb-3">
+            <p className='whuu'>Work Placement/apprenticeship Courses to offer</p>
+            <div className='mt-3'>
+              <label htmlFor={`module_code_${index}`} className="form-label">
+                <b>Module Code</b>
+              </label>
+              <input
+                type="text"
+                name="module_code"
+                className="form-control"
+                value={course.module_code}
+                onChange={(e) => handleCourseChange(index, e)}
+                required
+              />
+            </div>
+
+            <div className='mt-3'>
+              <label htmlFor={`module_name_${index}`} className="form-label">
+                <b>Module/Activity</b>
+              </label>
+              <input
+                type="text"
+                name="module_name"
+                className="form-control"
+                value={course.module_name}
+                onChange={(e) => handleCourseChange(index, e)}
+                required
+              />
+            </div>
+
+            <div className='mt-3'>
+              <label htmlFor={`duration_${index}`} className="form-label">
+                <b>Duration</b>
+              </label>
+              <div className="dates">
+                start date
+                <input
+                  type="date"
+                  placeholder='Start Date'
+                  onChange={(e) => setStartDate(e.target.value)}
+                  className='form-control'
+                />
+                End date
+                <input
+                  type="date"
+                  placeholder='End Date'
+                  onChange={(e) => setEndDate(e.target.value)}
+                  className='form-control'
+                />
+              
+                <input
+                  type="text"
+                  name="duration"
+                  className="form-control mt-2"
+                  value={course.duration}
+                  onChange={(e) => handleCourseChange(index, e)}
+                  readOnly
+                  placeholder='totalDays'
+                  required
+                />
+                
+              </div>
+            </div>
+            {errors[`course_${index}`] && <span className="text-danger">{errors[`course_${index}`]}</span>}
+          </div>
+        ))}
+
+        <button type="button" onClick={addCourse}>
+          Add Module
+        </button>
+        {errors.addCourse && <span className="text-danger">{errors.addCourse}</span>}
           <div className="mb-3">
             <p className='whuu'>Partnership and Willingness</p>
             <label htmlFor="reason_for_partnership" className="form-label">
@@ -176,7 +250,7 @@ function UpdateTrade() {
           </div>
 
           <div className="mb-3 label_form">
-            <p className='whuu'>Bussiness Size and Stage</p>
+            <p className='whuu'>Business Size and Stage</p>
             <label htmlFor="enterprise_size" className="form-label">
               Size of the enterprise
             </label>
@@ -276,7 +350,7 @@ function UpdateTrade() {
           </div>
 
           <div className="mb-3">
-          <p className='whuu'>Industry Expertise</p>
+            <p className='whuu'>Industry Expertise</p>
             <label htmlFor="expertise" className="form-label">
               Describe the enterprise's expertise in the relevant field selected in (Trade/sector of Operation) section
             </label>
@@ -289,7 +363,7 @@ function UpdateTrade() {
           </div>
 
           <div className="mb-3">
-          <p className='whuu'>Mentorship Capacity</p>
+            <p className='whuu'>Mentorship Capacity</p>
             <label htmlFor="staff_mentoring" className="form-label">
               Describe the adequacy of competent and experienced staff to guide and mentor apprentices in your enterprise
             </label>
@@ -302,7 +376,7 @@ function UpdateTrade() {
           </div>
 
           <div className="mb-3">
-          <p className='whuu'>Infrastructure</p>
+            <p className='whuu'>Infrastructure</p>
             <label htmlFor="infrastructure" className="form-label">
               Describe the infrastructure, facilities, and tools available for hands-on learning
             </label>
@@ -324,6 +398,3 @@ function UpdateTrade() {
 }
 
 export default UpdateTrade;
-
-
-
