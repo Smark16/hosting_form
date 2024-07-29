@@ -14,7 +14,6 @@ function UpdateHost() {
         has_hosted_apprentices: '',
         experience_details: '',
         max_apprentices: '',
-        courses: [{ sn: '', course_name: '', duration: '', user: user.user_id }],
         support_description: '',
         user: user.user_id
     });
@@ -45,39 +44,7 @@ function UpdateHost() {
         });
     };
 
-    const handleCourseChange = (index, e) => {
-        const { name, value } = e.target;
-        const newCourses = [...formData.courses];
-        newCourses[index][name] = value;
-        setFormData({
-            ...formData,
-            courses: newCourses
-        });
-        setErrors({
-            ...errors,
-            [`course_${index}`]: ''
-        });
-    };
-
-    const addCourse = () => {
-        const newCourse = { sn: '', course_name: '', duration: '', user: user.user_id };
-        if (formData.courses.some(course => Object.values(course).some(value => !value))) {
-            setErrors({
-                ...errors,
-                addCourse: 'Please fill out all course fields before adding a new one.'
-            });
-        } else {
-            setFormData({
-                ...formData,
-                courses: [...formData.courses, newCourse]
-            });
-            setErrors({
-                ...errors,
-                addCourse: ''
-            });
-        }
-    };
-
+ 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmit(true);
@@ -86,12 +53,7 @@ function UpdateHost() {
         if (!formData.has_hosted_apprentices) {
             validationErrors.has_hosted_apprentices = 'Please select an option.';
         }
-        formData.courses.forEach((course, index) => {
-            if (!course.sn || !course.course_name || !course.duration) {
-                validationErrors[`course_${index}`] = 'Please fill out all course fields.';
-            }
-        });
-
+       
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
             setSubmit(false);
@@ -183,59 +145,6 @@ function UpdateHost() {
                         required
                     />
                 </div>
-
-                {Array.isArray(formData.courses) && formData.courses.map((course, index) => (
-                    <div key={index} className="mb-3">
-                        <p className='whuu'>Work Placement/apprenticeship Courses to offer</p>
-                        <div>
-                            <label htmlFor={`sn_${index}`} className="form-label">
-                                SN
-                            </label>
-                            <input
-                                type="text"
-                                name="sn"
-                                className="form-control"
-                                value={course.sn}
-                                onChange={(e) => handleCourseChange(index, e)}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor={`course_name_${index}`} className="form-label">
-                                Course
-                            </label>
-                            <input
-                                type="text"
-                                name="course_name"
-                                className="form-control"
-                                value={course.course_name}
-                                onChange={(e) => handleCourseChange(index, e)}
-                                required
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor={`duration_${index}`} className="form-label">
-                                Duration
-                            </label>
-                            <input
-                                type="text"
-                                name="duration"
-                                className="form-control"
-                                value={course.duration}
-                                onChange={(e) => handleCourseChange(index, e)}
-                                required
-                            />
-                        </div>
-                        {errors[`course_${index}`] && <span className="text-danger">{errors[`course_${index}`]}</span>}
-                    </div>
-                ))}
-
-                <button type="button" onClick={addCourse}>
-                    Add Course
-                </button>
-                {errors.addCourse && <span className="text-danger">{errors.addCourse}</span>}
 
                 <div className="mb-3">
                     <label htmlFor="support_description" className="form-label">
