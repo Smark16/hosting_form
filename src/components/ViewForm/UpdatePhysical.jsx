@@ -147,7 +147,7 @@ const {user} = useContext(AuthContext)
 
   <div className="mb-3">
     <label htmlFor="formGroupExampleInput2" className="form-label">
-    GPS_Points
+    GPS_Points (Optional)
     </label>
     <input
       type="text"

@@ -22,14 +22,18 @@ function Trade() {
   });
   const [submit, setSubmit] = useState(false);
 
+  const handleSelect = (e)=>{
+    const selected = e.target.value
+    setTradeData({...tradeData,  targeted_trade:selected})
+  }
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-
-    if (type === 'checkbox') {
-      setTradeData({ ...tradeData, [name]: checked ? value : '' });
-    } else {
-      setTradeData({ ...tradeData, [name]: value });
-    }
+    setTradeData({ ...tradeData, [name]: value });
+    // if (type === 'checkbox') {
+    //   setTradeData({ ...tradeData, [name]: checked ? value : '' });
+    // } else {
+    // }
   };
 
   const handleSubmit = (e) => {
@@ -109,66 +113,18 @@ function Trade() {
             Choose targeted priority trades Enterprise/Industry is involved in?
           </label>
           <div>
-            <label>
-              <input
-                type="checkbox"
-                name="targeted_trade"
-                value="Hotel and Hospitality"
-                checked={tradeData.targeted_trade === "Hotel and Hospitality"}
-                onChange={handleChange}
-              />
-              Hotel and Hospitality
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="targeted_trade"
-                value="Food and agro-processing"
-                checked={tradeData.targeted_trade === "Food and agro-processing"}
-                onChange={handleChange}
-              />
-              Food and agro-processing
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="targeted_trade"
-                value="Cosmetology"
-                checked={tradeData.targeted_trade === "Cosmetology"}
-                onChange={handleChange}
-              />
-              Cosmetology
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="targeted_trade"
-                value="Tailoring and textiles"
-                checked={tradeData.targeted_trade === "Tailoring and textiles"}
-                onChange={handleChange}
-              />
-              Tailoring and textiles
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="targeted_trade"
-                value="Welding and Metal fabrication"
-                checked={tradeData.targeted_trade === "Welding and Metal fabrication"}
-                onChange={handleChange}
-              />
-              Welding and Metal fabrication
-            </label>
-            <label>
-              <input
-                type="checkbox"
-                name="targeted_trade"
-                value="Electrical and electronics"
-                checked={tradeData.targeted_trade === "Electrical and electronics"}
-                onChange={handleChange}
-              />
-              Electrical and electronics
-            </label>
+            <select onChange={handleSelect} className="form-control">
+              <option>Choose Enterprize</option>
+              <option value="Hotel and Hospitality">Hotel and Hospitality</option>
+              <option value="Food and agro-processing">Food and agro-processing</option>
+              <option value="Cosmetology">Cosmetology</option>
+              <option value="Tailoring and textiles">Tailoring and textiles</option>
+              <option value="Welding and Metal fabrication">Welding and Metal fabrication</option>
+              <option value="Electrical and electronics">Electrical and electronics</option>
+              <option value="Performing Arts">Performing Arts</option>
+              <option value="Construction">Construction</option>
+              <option value="Mechanical">Mechanical</option>
+            </select>
           </div>
         </div>
 
