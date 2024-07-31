@@ -163,15 +163,18 @@ function Trade() {
           <div>
             <select onChange={handleSelect} className="form-control">
               <option>Choose Enterprise</option>
-              <option value="Hotel and Hospitality">Hotel and Hospitality</option>
-              <option value="Food and agro-processing">Food and agro-processing</option>
-              <option value="Cosmetology">Cosmetology</option>
+              <option value="Hotel and Catering">Hotel and Catering</option>
+              <option value="Food and Agro-processing">Food and Agro-processing</option>
+              <option value="Beauty and Cosmetology">Beauty and Cosmetology</option>
               <option value="Tailoring and textiles">Tailoring and textiles</option>
               <option value="Welding and Metal fabrication">Welding and Metal fabrication</option>
               <option value="Electrical and electronics">Electrical and electronics</option>
-              <option value="Performing Arts">Performing Arts</option>
+              <option value="Creative and Performing Arts">Creative and Performing Arts</option>
               <option value="Construction">Construction</option>
+              <option value="Capentry">Capentry</option>
               <option value="Mechanical">Mechanical</option>
+              <option value="ICT and Digital Media">ICT and Digital Media</option>
+              <option value="Leisure and Hospitality">Leisure and Hospitality</option>
             </select>
           </div>
         </div>

@@ -87,7 +87,7 @@ const {user} = useContext(AuthContext)
   </div>
   <div className="mb-3">
     <label htmlFor="formGroupExampleInput2" className="form-label">
-    Constituency 
+    Constituency/County
     </label>
     <input
       type="text"
@@ -102,7 +102,7 @@ const {user} = useContext(AuthContext)
 
   <div className="mb-3">
     <label htmlFor="formGroupExampleInput2" className="form-label">
-    Sub_county
+    Sub_county/Division
     </label>
     <input
       type="text"
@@ -117,7 +117,7 @@ const {user} = useContext(AuthContext)
 
   <div className="mb-3">
     <label htmlFor="formGroupExampleInput2" className="form-label">
-    Parish
+    Parish/ward
     </label>
     <input
       type="text"
@@ -132,7 +132,7 @@ const {user} = useContext(AuthContext)
 
   <div className="mb-3">
     <label htmlFor="formGroupExampleInput2" className="form-label">
-    Village
+    Village/LC1
     </label>
     <input
       type="text"
@@ -147,7 +147,7 @@ const {user} = useContext(AuthContext)
 
   <div className="mb-3">
     <label htmlFor="formGroupExampleInput2" className="form-label">
-    GPS_Points (Optional)
+    GPS_Points/Co-ordinates (Optional)
     </label>
     <input
       type="text"
