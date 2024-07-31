@@ -160,7 +160,7 @@ function BasicInfo() {
           </div>
         )}
         <div className="mb-3">
-          <label htmlFor="formGroupExampleInput2" className="form-label">Contact Email</label>
+          <label htmlFor="formGroupExampleInput2" className="form-label">Institute Email</label>
           <input
             type="email"
             className="form-control"

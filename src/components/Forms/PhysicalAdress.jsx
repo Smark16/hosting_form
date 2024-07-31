@@ -85,7 +85,7 @@ function PhysicalAdress() {
   </div>
   <div className="mb-3">
     <label htmlFor="formGroupExampleInput2" className="form-label">
-    Constituency 
+    Constituency/County
     </label>
     <input
       type="text"
@@ -100,7 +100,7 @@ function PhysicalAdress() {
 
   <div className="mb-3">
     <label htmlFor="formGroupExampleInput2" className="form-label">
-    Sub_county
+    Sub_county/Division
     </label>
     <input
       type="text"
@@ -115,7 +115,7 @@ function PhysicalAdress() {
 
   <div className="mb-3">
     <label htmlFor="formGroupExampleInput2" className="form-label">
-    Parish
+    Parish/Ward
     </label>
     <input
       type="text"
@@ -130,7 +130,7 @@ function PhysicalAdress() {
 
   <div className="mb-3">
     <label htmlFor="formGroupExampleInput2" className="form-label">
-    Village
+    Village/LC1
     </label>
     <input
       type="text"
@@ -145,7 +145,7 @@ function PhysicalAdress() {
 
   <div className="mb-3">
     <label htmlFor="formGroupExampleInput2" className="form-label">
-    GPS_Points (Optional)
+    GPS_Points/Co-ordinates(Optional)
     </label>
     <input
       type="text"
