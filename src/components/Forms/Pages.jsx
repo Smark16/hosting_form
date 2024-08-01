@@ -45,10 +45,10 @@ function Pages() {
             </div>
             <div className="dropdown-content">
               <ul>
-                <li className={location.pathname === '/institute/information' ? 'sublink' : ''}>
+                <li className='sublink'>
                   <p><Link to='/institute/information' className='text-white Link'>Basic Infomation</Link></p>
                 </li>
-                <li className={location.pathname === '/institute/physical_Address' ? 'sublink' : ''}>
+                <li className='sublink'>
                   <p><Link to='/institute/physical_Address' className='text-white Link'>Physical Address</Link></p>
                 </li>
               </ul>
@@ -72,10 +72,10 @@ function Pages() {
             </div>
             <div className="dropdown-content">
               <ul>
-                <li className={location.pathname === '/institute/education_level' ? 'sublink' : ''}>
+                <li className='sublink'>
                   <p><Link to='/institute/education_level' className='text-white Link'>Education Level</Link></p>
                 </li>
-                <li className={location.pathname === '/institute/category' ? 'sublink' : ''}>
+                <li className='sublink'>
                   <p><Link to='/institute/category' className='text-white Link'>Category</Link></p>
                 </li>
               </ul>

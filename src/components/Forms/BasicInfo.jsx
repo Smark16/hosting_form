@@ -91,7 +91,7 @@ function BasicInfo() {
       <p className="text-center reg_word">BASIC INFORMATION</p>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="formGroupExampleInput" className="form-label">Name Of The Enterprize/Industry</label>
+          <label htmlFor="formGroupExampleInput" className="form-label">Name Of The Enterprise/Industry</label>
           <input
             type="text"
             className="form-control"

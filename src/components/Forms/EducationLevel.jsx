@@ -97,7 +97,7 @@ function EducationLevel() {
                     <>
                         <div className="mb-3">
                             <label htmlFor="formGroupExampleInput" className="form-label">
-                                No_Formal_Education
+                                No Formal Education
                             </label>
                             <input
                                 type="number"
@@ -202,7 +202,7 @@ function EducationLevel() {
 
                         <div className="mb-3">
                             <label htmlFor="formGroupExampleInput2" className="form-label">
-                                Post_Graduate
+                                Post Graduate
                             </label>
                             <input
                                 type="number"

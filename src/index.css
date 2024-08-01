@@ -210,8 +210,8 @@ ul {
   border-radius: 10px;
 }
 
-.sublink {
-  background-color: #ffa500;
+.sublink:hover {
+  background-color: #008000;
 }
 
 .logout {
@@ -262,12 +262,14 @@ ul li p {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
-  background-color: #008000;
 }
 
 .dropdown.open .dropdown-content {
   max-height: 200px; /* Adjust based on the number of dropdown items */
   transition: max-height 0.3s ease-in;
+  border-left: 1px solid #ccc;
+  margin-left: 30px;
+  padding: 10px;
 }
 
 .bi-chevron-down.rotate {
@@ -600,8 +602,26 @@ form .btn:hover {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.finish{
+  margin-top: 100px;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid green;
+  border-radius: 10px;
+}
+.finish span{
+  margin: 0 auto;
+  width:400px
+}
 
 @media screen and (max-width:768px){
+  .finish{
+width: 100%;
+  }
+  .finish span{
+    margin: 0 auto;
+  width:100%
+  }
   .studProfile{
       justify-content: center;
       width: 100%;

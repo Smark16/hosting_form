@@ -208,7 +208,7 @@ function Capacity() {
 
             <div className="mb-3">
               <label htmlFor="formGroupExampleInput2" className="form-label">
-                Tel-No Of The Contact Person
+                Telephone Number Of The Contact Person
               </label>
               <PhoneInput
                 country={'ug'}

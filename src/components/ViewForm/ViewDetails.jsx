@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 
 function ViewDetails() {
+  const navigate = useNavigate()
     const {user} = useContext(AuthContext)
     const [basic, setBasic] = useState('')
     const [loading, setLoading] = useState(false)
@@ -140,6 +142,9 @@ const fetchAdditional = async()=>{
   }catch(err){
     console.log(err)
   }
+}
+const handlePage = ()=>{
+  navigate("/complete")
 }
 
     useEffect(()=>{
@@ -509,7 +514,9 @@ const fetchAdditional = async()=>{
                 Update Details
             </button>
                 </Link>
+
      </div>
+                <button className='btn btn-primary text-center' onClick={handlePage}>Finish Application</button>
    </div>
     </>
   

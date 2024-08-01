@@ -25,6 +25,7 @@ import UpdateHost from '../ViewForm/UpdateHost'
 import UpdateAdd from '../ViewForm/UpdateAdd'
 import Logout from '../Authenticate/Logout'
 import Profile from '../Forms/Profile'
+import Complete from '../ViewForm/Complete'
 
 function Show() {
   const { display } = useContext(AuthContext)
@@ -73,6 +74,7 @@ function Show() {
             </PrivateRoute>
           }
         />
+                    <Route path='/complete' element={<Complete/>}/>
       </Routes>
     </>
   )
