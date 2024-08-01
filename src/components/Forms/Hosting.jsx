@@ -89,7 +89,7 @@ function Hosting() {
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="has_hosted_apprentices" className="form-label">
-                        Has the enterprise hosted apprentices, interns or industrial trainees before?
+                        Has the enterprise hosted apprentices, interns or industrial trainees before?*
                     </label>
                     <ul>
                         <li>
@@ -119,7 +119,7 @@ function Hosting() {
                 {formData.has_hosted_apprentices === 'YES' && (
                     <div className="mb-3">
                         <label htmlFor="experience_details" className="form-label">
-                            Details of the experience
+                            Details of the experience*
                         </label>
                         <textarea
                             name="experience_details"
@@ -133,7 +133,7 @@ function Hosting() {
 
                 <div className="mb-3">
                     <label htmlFor="max_apprentices" className="form-label">
-                        Maximum Number Of Apperentices that can be taken at the moment
+                        Maximum Number Of Apperentices that can be taken at the moment*
                     </label>
                     <input
                         type="number"
@@ -147,7 +147,7 @@ function Hosting() {
 
                 <div className="mb-3">
                     <label htmlFor="support_description" className="form-label">
-                        Describe the form of support and associated payment you require per apprentice
+                        Describe the form of support and associated payment you require per apprentice*
                     </label>
                     <textarea
                         name="support_description"

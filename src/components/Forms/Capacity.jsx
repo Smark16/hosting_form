@@ -130,7 +130,7 @@ function Capacity() {
         {isRegistered === 'no' && (
           <div className="mb-3">
             <label htmlFor="formGroupExampleInput2" className="form-label">
-              Enter Reason
+              Enter Reason*
             </label>
             <textarea
               type="text"
@@ -148,7 +148,7 @@ function Capacity() {
           <>
             <div className="mb-3">
               <label htmlFor="formGroupExampleInput2" className="form-label">
-                Date Of Registration
+                Date Of Registration*
               </label>
               <input
                 type="date"
@@ -163,7 +163,7 @@ function Capacity() {
 
             <div className="mb-3">
               <label htmlFor="formGroupExampleInput2" className="form-label">
-                Certificate of Registration
+                Certificate of Registration*
               </label>
               <input
                 type="file"
@@ -178,7 +178,7 @@ function Capacity() {
 
             <div className="mb-3">
               <label htmlFor="formGroupExampleInput2" className="form-label">
-                Registration Number
+                Registration Number*
               </label>
               <input
                 type="text"
@@ -193,7 +193,7 @@ function Capacity() {
 
             <div className="mb-3">
               <label htmlFor="formGroupExampleInput2" className="form-label">
-                Name Of The Contact Person
+                Name Of The Contact Person*
               </label>
               <input
                 type="text"
@@ -208,7 +208,7 @@ function Capacity() {
 
             <div className="mb-3">
               <label htmlFor="formGroupExampleInput2" className="form-label">
-                Telephone Number Of The Contact Person
+                Telephone Number Of The Contact Person*
               </label>
               <PhoneInput
                 country={'ug'}
@@ -229,7 +229,7 @@ function Capacity() {
 
             <div className="mb-3">
               <label htmlFor="formGroupExampleInput2" className="form-label">
-                Title Of The Contact Person
+                Title Of The Contact Person*
               </label>
               <input
                 type="text"

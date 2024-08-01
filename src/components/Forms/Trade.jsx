@@ -158,7 +158,7 @@ function Trade() {
         <div className="mb-3 label_form">
           <p className='whuu'>Trade/Sector of Operation</p>
           <label htmlFor="targeted_trade" className="form-label">
-            Choose targeted priority trades Enterprise/Industry is involved in?
+            Choose targeted priority trades Enterprise/Industry is involved in?*
           </label>
           <div>
             <select onChange={handleSelect} className="form-control">
@@ -182,7 +182,7 @@ function Trade() {
         {tradeData.targeted_trade && (
           <div className="mb-3">
             <label htmlFor="sector_description" className="form-label">
-              Describe more on the <b>{tradeData.targeted_trade}</b> sector(s) being offered
+              Describe more on the <b>{tradeData.targeted_trade}</b> sector(s) being offered*
             </label>
             <textarea
               name="sector_description"
@@ -196,7 +196,7 @@ function Trade() {
 
         {tradeData.courses.map((course, index) => (
           <div key={index} className="mb-3">
-            <p className='whuu'>Work Placement/apprenticeship Courses to offer</p>
+            <p className='whuu'>Work Placement/apprenticeship Courses to offer*</p>
             <div className='mt-3'>
               <label htmlFor={`module_code_${index}`} className="form-label">
                 <b>Module Code (Optional)</b>
@@ -213,7 +213,7 @@ function Trade() {
 
             <div className='mt-3'>
               <label htmlFor={`module_name_${index}`} className="form-label">
-                <b>Module/Activity</b>
+                <b>Module/Activity*</b>
               </label>
               <input
                 type="text"
@@ -227,7 +227,7 @@ function Trade() {
 
             <div className='mt-3'>
               <label htmlFor={`duration_${index}`} className="form-label">
-                <b>Duration</b>
+                <b>Duration*</b>
               </label>
               <div className="dates">
                 start date
@@ -264,7 +264,7 @@ function Trade() {
           </div>
         ))}
 
-        <button type="button" onClick={addCourse}>
+        <button type="button" onClick={addCourse} className='btn btn-primary'>
           Add Module
         </button>
         {errors.addCourse && <span className="text-danger">{errors.addCourse}</span>}
@@ -272,7 +272,7 @@ function Trade() {
         <div className="mb-3">
           <p className='whuu'>Partnership and Willingness</p>
           <label htmlFor="reason_for_partnership" className="form-label">
-            Why Does your Industry association/Enterprise want to partner with the Ministry of Gender, Labour and Social Development and Grow project for work placement program?
+            Why Does your Industry association/Enterprise want to partner with the Ministry of Gender, Labour and Social Development and Grow project for work placement program?*
           </label>
           <textarea
             name="reason_for_partnership"
@@ -286,7 +286,7 @@ function Trade() {
         <div className="mb-3 label_form">
           <p className='whuu'>Business Size and Stage</p>
           <label htmlFor="enterprise_size" className="form-label">
-            Size of the enterprise
+            Size of the enterprise*
           </label>
           <div>
             <label>
@@ -334,7 +334,7 @@ function Trade() {
 
         <div className="mb-3 stage">
           <label htmlFor="dev_stage" className="form-label">
-            Stage of Development of the enterprise
+            Stage of Development of the enterprise*
           </label>
           <div>
             <label>
@@ -373,7 +373,7 @@ function Trade() {
         <div className="mb-3">
           <p className='whuu'>Business Success Record</p>
           <label htmlFor="track_record" className="form-label">
-            Provide Brief Overview of the enterprise's track record of business growth
+            Provide Brief Overview of the enterprise's track record of business growth*
           </label>
           <textarea
             name="track_record"
@@ -387,7 +387,7 @@ function Trade() {
         <div className="mb-3">
           <p className='whuu'>Industry Expertise</p>
           <label htmlFor="expertise" className="form-label">
-            Describe the enterprise's expertise in the relevant field selected in (Trade/sector of Operation) section
+            Describe the enterprise's expertise in the relevant field selected in (Trade/sector of Operation) section*
           </label>
           <textarea
             name="expertise"
@@ -401,7 +401,7 @@ function Trade() {
         <div className="mb-3">
           <p className='whuu'>Mentorship Capacity</p>
           <label htmlFor="staff_mentoring" className="form-label">
-            Describe the adequacy of competent and experienced staff to guide and mentor apprentices in your enterprise
+            Describe the adequacy of competent and experienced staff to guide and mentor apprentices in your enterprise*
           </label>
           <textarea
             name="staff_mentoring"
@@ -415,7 +415,7 @@ function Trade() {
         <div className="mb-3">
           <p className='whuu'>Infrastructure</p>
           <label htmlFor="infrastructure" className="form-label">
-            Describe the infrastructure, facilities, and tools available for hands-on learning
+            Describe the infrastructure, facilities, and tools available for hands-on learning*
           </label>
           <textarea
             name="infrastructure"

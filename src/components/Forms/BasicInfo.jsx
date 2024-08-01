@@ -91,7 +91,7 @@ function BasicInfo() {
       <p className="text-center reg_word">BASIC INFORMATION</p>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="formGroupExampleInput" className="form-label">Name Of The Enterprise/Industry</label>
+          <label htmlFor="formGroupExampleInput" className="form-label">Name Of The Enterprise/Industry*</label>
           <input
             type="text"
             className="form-control"
@@ -103,7 +103,7 @@ function BasicInfo() {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="formGroupExampleInput2" className="form-label">Telephone Contact</label>
+          <label htmlFor="formGroupExampleInput2" className="form-label">Telephone Contact*</label>
           <PhoneInput
             country="ug"
             value={basic.Telephone}
@@ -117,11 +117,11 @@ function BasicInfo() {
             inputClass="w-100 border-0"
           />
           {mobileErrors && mobileErrors.map((err, index) => (
-            <p key={index} className="text-danger">Enter valid phone number</p>
+            <p key={index} className="text-danger">Enter valid phone number*</p>
           ))}
         </div>
         <div className="mb-3">
-          <label htmlFor="formGroupExampleInput2" className="form-label">Does Your Business Have Website Link</label>
+          <label htmlFor="formGroupExampleInput2" className="form-label">Does Your Business Have Website Link*</label>
           <ul>
             <li>
               <input
@@ -147,7 +147,7 @@ function BasicInfo() {
         </div>
         {showWebsiteLink && (
           <div className="mb-3">
-            <label htmlFor="formGroupExampleInput2" className="form-label">Website Link</label>
+            <label htmlFor="formGroupExampleInput2" className="form-label">Website Link*</label>
             <input
               type="text"
               className="form-control"
@@ -160,7 +160,7 @@ function BasicInfo() {
           </div>
         )}
         <div className="mb-3">
-          <label htmlFor="formGroupExampleInput2" className="form-label">Institute Email</label>
+          <label htmlFor="formGroupExampleInput2" className="form-label">Institute Email*</label>
           <input
             type="email"
             className="form-control"
