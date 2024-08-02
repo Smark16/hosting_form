@@ -26,6 +26,8 @@ import UpdateAdd from '../ViewForm/UpdateAdd'
 import Logout from '../Authenticate/Logout'
 import Profile from '../Forms/Profile'
 import Complete from '../ViewForm/Complete'
+import QuestionsForm from '../Forms/Environment'
+import UpdateEnv from '../ViewForm/updateEnv'
 
 function Show() {
   const { display } = useContext(AuthContext)
@@ -67,6 +69,8 @@ function Show() {
                     <Route path="update_trade_operation/:id" element={<UpdateTrade/>}/>
                     <Route path='update_hosting_apperentices/:id' element={<UpdateHost/>}/>
                     <Route path="update_additional_info/:id" element={<UpdateAdd/>}/>
+                    <Route path='environment_questions' element={<QuestionsForm/>}/>
+                    <Route path='update_env/:id' element={<UpdateEnv/>}/>
                     <Route path='profile' element={<Profile/>}/>
                   </Routes>
                 </div>

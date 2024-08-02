@@ -93,15 +93,20 @@ function Pages() {
           <p><Link to='/institute/hosting_apprentices' className='text-white Link'>Hosting Apprentices</Link></p>
         </li>
 
+          <li className={location.pathname === '/institute/environment_questions' ? 'side_list activeLink' : 'side_list'}>
+          <i className="bi bi-tree-fill"></i>
+          <p><Link to='/institute/environment_questions' className='text-white Link'>Environment</Link></p>
+        </li>
+
         <li className={location.pathname === '/institute/additional_info' ? 'side_list activeLink' : 'side_list'}>
         <i class="bi bi-info-square-fill"></i>
           <p><Link to='/institute/additional_info' className='text-white Link'>Additional Information</Link></p>
         </li>
 
-        {/* <li className={location.pathname === '/institute/view_details' ? 'side_list activeLink' : 'side_list'}>
+        <li className={location.pathname === '/institute/view_details' ? 'side_list activeLink' : 'side_list'}>
           <i className="bi bi-person-circle"></i>
           <p><Link to='/institute/view_details' className='text-white Link'>Additional Information</Link></p>
-        </li> */}
+        </li>
       </ul>
 
       <ul className="logout">

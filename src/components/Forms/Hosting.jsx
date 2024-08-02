@@ -50,7 +50,7 @@ function Hosting() {
             if(response.status === 201){
                 setSubmit(false);
                ShowSuccessAlert("Submitting Completed");
-               navigate("/institute/additional_info")
+               navigate("/institute/environment_questions")
             }
             
         } catch (err) {
