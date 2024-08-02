@@ -9,6 +9,7 @@ function UpdateCapacity() {
     const { user } = useContext(AuthContext);
     const [fileDetails, setFileDetails] = useState(null);
     const [phoneValide, setPhoneValidate] = useState([]);
+    const [fileResponse, setFileResponse] = useState('')
     const [uploadProgress, setUploadProgress] = useState(0);
     const post_capacity = `https://institute-application-backend.onrender.com/form/update_capacity/${user.user_id}`;
     const retrieveCapacity = `https://institute-application-backend.onrender.com/form/retrieve_capacity/${user.user_id}`;
@@ -82,9 +83,10 @@ function UpdateCapacity() {
                         setUploadProgress(percentCompleted);
                     },
                 });
-
-                if (response.status === 201) {
-                    setCapacity({ ...capacity, certificate: response.data.file_id });
+                
+                if (response.status === 200) {
+                    setCapacity({ ...capacity, certificate: response.data.id });
+                    setFileResponse(response.data)
                 }
             } catch (error) {
                 console.error('There was an error uploading the file!', error);
@@ -106,8 +108,8 @@ function UpdateCapacity() {
         formData.append("user", user.user_id);
 
         // Only append the file if it exists (i.e., user selected a new file)
-        if (fileDetails) {
-            formData.append('certificate', fileDetails);
+        if (fileDetails && fileResponse) {
+            formData.append('certificate', fileResponse.id);
         } else if (capacity.certificate) {
             formData.append('certificate', capacity.certificate);  // Existing file ID or name
         }
