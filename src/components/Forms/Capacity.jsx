@@ -80,7 +80,12 @@ function Capacity() {
     const formData = new FormData();
     formData.append("Date_Of_Registration", capacity.Date_Of_Registration);
     formData.append("Registration_Number", capacity.Registration_Number);
-    formData.append("certificate", capacity.certificate);
+
+     // Only append certificate if 'isRegistered' is 'yes'
+     if (isRegistered === 'yes' && capacity.certificate) {
+      formData.append("certificate", capacity.certificate);
+  }
+
     formData.append("Name_Of_The_Contact_Person", capacity.Name_Of_The_Contact_Person);
     formData.append("TelNo_Of_The_Contact_Person", capacity.TelNo_Of_The_Contact_Person);
     formData.append("Title_Of_The_Contact_Person", capacity.Title_Of_The_Contact_Person);
