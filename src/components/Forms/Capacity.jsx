@@ -7,11 +7,14 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
 const post_capacity = 'https://institute-application-backend.onrender.com/form/post_capacity';
+const fileUpload = 'https://institute-application-backend.onrender.com/form/upload_file';
 
 function Capacity() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [phoneValide, setPhoneValidate] = useState([]);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [fileDetails, setFileDetails] = useState('');
   const [capacity, setCapacity] = useState({
     Date_Of_Registration: "",
     Registration_Number: "",
@@ -26,10 +29,43 @@ function Capacity() {
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-    if(type === 'file'){
+    if (type === 'file') {
       setCapacity({ ...capacity, [name]: files[0] });
     } else {
       setCapacity({ ...capacity, [name]: value });
+    }
+  };
+
+  const handleFileUploadClick = () => {
+    document.getElementById('certificateInput').click();
+  };
+
+  const handleFileChange = async (e) => {
+    const selectedFile = e.target.files[0];
+    if (selectedFile) {
+      setFileDetails(selectedFile);
+      setUploadProgress(0)
+      const formData = new FormData();
+      formData.append('name', selectedFile);
+      formData.append('user', user.user_id)
+
+      try {
+        const response = await axios.post(fileUpload, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            setUploadProgress(percentCompleted);
+          },
+        });
+
+        if (response.status === 201) {
+          setCapacity({ ...capacity, certificate: response.data.file_id });
+        }
+      } catch (error) {
+        console.error('There was an error uploading the file!', error);
+      }
     }
   };
 
@@ -168,12 +204,31 @@ function Capacity() {
               <input
                 type="file"
                 className="form-control"
-                id="formGroupExampleInput2"
+                id="certificateInput"
                 name='certificate'
                 accept=".pdf, .docx, .zip"
-                onChange={handleChange}
-                required
+                onChange={handleFileChange}
+                hidden
               />
+              <div className="fileupload">
+                {fileDetails ? (
+                  <ul>
+                  <li className="file-name">
+                    <span className='reduce_letter'>{fileDetails.name}</span>
+                    <div className="progress-bar p-2 text-white" style={{ width: `${uploadProgress}%` }}>
+                      {uploadProgress}%
+                    </div>
+                  </li>
+                </ul>
+                ) : (
+<>
+<div className="more d-flex">
+<p>Click Here to</p>
+<a href="#" onClick={handleFileUploadClick}>Upload Certificate</a>
+</div>
+</>
+                )}
+              </div>
             </div>
 
             <div className="mb-3">

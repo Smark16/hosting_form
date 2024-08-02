@@ -7,10 +7,14 @@ import { useNavigate } from 'react-router-dom';
 function UpdateCapacity() {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
-    const post_capacity = `https://institute-application-backend.onrender.com/form/update_capacity/${user.user_id}`;
+    const [fileDetails, setFileDetails] = useState(null);
     const [phoneValide, setPhoneValidate] = useState([]);
+    const [uploadProgress, setUploadProgress] = useState(0);
+    const post_capacity = `https://institute-application-backend.onrender.com/form/update_capacity/${user.user_id}`;
     const retrieveCapacity = `https://institute-application-backend.onrender.com/form/retrieve_capacity/${user.user_id}`;
-
+    const retrieveFile = `https://institute-application-backend.onrender.com/form/retrieve_File/${user.user_id}`;
+    const updateFileUrl = `https://institute-application-backend.onrender.com/form/update_file/${user.user_id}`;
+    const [file, setFile] = useState({ name: "" });
     const [capacity, setCapacity] = useState({
         Date_Of_Registration: "",
         Registration_Number: "",
@@ -23,7 +27,7 @@ function UpdateCapacity() {
 
     const fetchCapacity = async () => {
         try {
-            const response = await axios(retrieveCapacity);
+            const response = await axios.get(retrieveCapacity);
             const data = response.data;
             setCapacity(data);
         } catch (err) {
@@ -31,8 +35,19 @@ function UpdateCapacity() {
         }
     };
 
+    const fetchFile = async () => {
+        try {
+            const response = await axios.get(retrieveFile);
+            const data = response.data;
+            setFile(data);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     useEffect(() => {
         fetchCapacity();
+        fetchFile();
     }, []);
 
     const [submit, setSubmit] = useState(false);
@@ -41,15 +56,46 @@ function UpdateCapacity() {
     const handleChange = (e) => {
         const { name, value, type, files } = e.target;
         if (type === 'file') {
-            setCapacity({ ...capacity, [name]: files[0] });
+            setFileDetails(files[0]);
         } else {
             setCapacity({ ...capacity, [name]: value });
+        }
+    };
+
+    const handleFileChange = async (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            setFileDetails(selectedFile);
+            setUploadProgress(0);
+
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+            formData.append("user", user.user_id);
+
+            try {
+                const response = await axios.put(updateFileUrl, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                    onUploadProgress: (progressEvent) => {
+                        const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        setUploadProgress(percentCompleted);
+                    },
+                });
+
+                if (response.status === 201) {
+                    setCapacity({ ...capacity, certificate: response.data.file_id });
+                }
+            } catch (error) {
+                console.error('There was an error uploading the file!', error);
+            }
         }
     };
 
     const handleSubmit = async (e) => {
         setSubmit(true);
         e.preventDefault();
+
         const formData = new FormData();
         formData.append("Date_Of_Registration", capacity.Date_Of_Registration);
         formData.append("Registration_Number", capacity.Registration_Number);
@@ -59,19 +105,14 @@ function UpdateCapacity() {
         formData.append("reason", capacity.reason);
         formData.append("user", user.user_id);
 
+        // Only append the file if it exists (i.e., user selected a new file)
+        if (fileDetails) {
+            formData.append('certificate', fileDetails);
+        } else if (capacity.certificate) {
+            formData.append('certificate', capacity.certificate);  // Existing file ID or name
+        }
+
         try {
-            if (capacity.certificate && typeof capacity.certificate === 'string') {
-                // Download the file from the URL
-                const response = await axios.get(capacity.certificate, { responseType: 'blob' });
-                const fileBlob = new Blob([response.data], { type: response.headers['content-type'] });
-                const file = new File([fileBlob], 'certificate.pdf'); // Specify the filename and extension
-
-                // Append the downloaded file to the form data
-                formData.append('certificate', file);
-            } else {
-                formData.append('certificate', capacity.certificate);
-            }
-
             const response = await axios.put(post_capacity, formData);
             if (response.status === 200) {
                 setSubmit(false);
@@ -172,18 +213,34 @@ function UpdateCapacity() {
                         </div>
 
                         <div className="mb-3">
-                            <label htmlFor="formGroupExampleInput2" className="form-label">
-                                Certificate of Registration
+                            <label htmlFor="file_upload" className="form-label bg-primary text-center p-2 text-white">
+                                Update Certificate of Registration
                             </label>
                             <input
                                 type="file"
                                 className="form-control"
-                                id="formGroupExampleInput2"
+                                id="file_upload"
                                 name='certificate'
                                 accept=".pdf, .docx, .zip"
-                                onChange={handleChange}
-                                required
+                                onChange={handleFileChange}
+                                hidden
                             />
+                            <div className="fileupload">
+                                {fileDetails ? (
+                                    <ul>
+                                        <li className="file-name">
+                                            <span className='reduce_letter'>{fileDetails.name}</span>
+                                            <div className="progress-bar p-2 text-white" style={{ width: `${uploadProgress}%` }}>
+                                                {uploadProgress}%
+                                            </div>
+                                        </li>
+                                    </ul>
+                                ) : (
+                                    <>
+                                        <span>{file.name}</span>
+                                    </>
+                                )}
+                            </div>
                         </div>
 
                         <div className="mb-3">

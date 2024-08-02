@@ -613,7 +613,45 @@ form .btn:hover {
   margin: 0 auto;
   width:400px
 }
+.fileupload{
+  border: 1px solid #ddd;
+  padding: 20px;
+}
+.progress-bar {
+  height: 10px;
+  background-color: #007bff;
+  flex-grow: 1; /* Takes up remaining space */
+}
+/* .upcoming-events{
+  border: 2px solid red;
+  overflow-x: scroll;
+} */
 
+.progress-bar::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 0;
+  background-color: #28a745;
+}
+
+.reduce_letter{
+  white-space: nowrap; 
+  overflow: hidden; /* Hides overflow */
+  text-overflow: ellipsis; /* Displays ellipsis (...) when text overflows */
+  display: inline-block; /* Ensures it respects width and height constraints */
+  max-width:70%;  
+  cursor: pointer;
+  margin-top: 30px;
+}
+.progress-bar{
+  margin-top: 35px;
+  width: 200px;
+}
+.file-name{
+  display: flex;
+  width: 100%;
+}
 @media screen and (max-width:768px){
   .finish{
 width: 100%;
@@ -621,6 +659,9 @@ width: 100%;
   .finish span{
     margin: 0 auto;
   width:100%
+  }
+  .file-name{
+    width: 100%;
   }
   .studProfile{
       justify-content: center;
