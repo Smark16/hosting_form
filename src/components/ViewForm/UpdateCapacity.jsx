@@ -69,7 +69,7 @@ function UpdateCapacity() {
             setUploadProgress(0);
 
             const formData = new FormData();
-            formData.append('file', selectedFile);
+            formData.append('name', selectedFile);
             formData.append("user", user.user_id);
 
             try {
