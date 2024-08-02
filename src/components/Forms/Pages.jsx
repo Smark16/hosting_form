@@ -103,10 +103,10 @@ function Pages() {
           <p><Link to='/institute/additional_info' className='text-white Link'>Additional Information</Link></p>
         </li>
 
-        {/* <li className={location.pathname === '/institute/view_details' ? 'side_list activeLink' : 'side_list'}>
+        <li className={location.pathname === '/institute/view_details' ? 'side_list activeLink' : 'side_list'}>
           <i className="bi bi-person-circle"></i>
           <p><Link to='/institute/view_details' className='text-white Link'>Additional Information</Link></p>
-        </li> */}
+        </li>
       </ul>
 
       <ul className="logout">

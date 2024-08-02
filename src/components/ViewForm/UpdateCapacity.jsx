@@ -8,7 +8,6 @@ function UpdateCapacity() {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
     const [fileDetails, setFileDetails] = useState(null);
-    const [phoneValide, setPhoneValidate] = useState([]);
     const [fileResponse, setFileResponse] = useState('')
     const [uploadProgress, setUploadProgress] = useState(0);
     const post_capacity = `https://institute-application-backend.onrender.com/form/update_capacity/${user.user_id}`;
@@ -99,10 +98,15 @@ function UpdateCapacity() {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("Date_Of_Registration", capacity.Date_Of_Registration);
         formData.append("Registration_Number", capacity.Registration_Number);
         formData.append("Name_Of_The_Contact_Person", capacity.Name_Of_The_Contact_Person);
-        formData.append("TelNo_Of_The_Contact_Person", capacity.TelNo_Of_The_Contact_Person);
+        if(capacity.TelNo_Of_The_Contact_Person){
+            formData.append("TelNo_Of_The_Contact_Person", capacity.TelNo_Of_The_Contact_Person);
+        }
+        if(capacity.Date_Of_Registration){
+            formData.append("Date_Of_Registration", capacity.Date_Of_Registration);
+        }
+       
         formData.append("Title_Of_The_Contact_Person", capacity.Title_Of_The_Contact_Person);
         formData.append("reason", capacity.reason);
         formData.append("user", user.user_id);
@@ -110,7 +114,7 @@ function UpdateCapacity() {
         // Only append the file if it exists (i.e., user selected a new file)
         if (fileDetails && fileResponse) {
             formData.append('certificate', fileResponse.id);
-        } else if (capacity.certificate) {
+        } else if (capacity.certificate && isRegistered === 'yes') {
             formData.append('certificate', capacity.certificate);  // Existing file ID or name
         }
 
@@ -123,9 +127,6 @@ function UpdateCapacity() {
             }
         } catch (err) {
             console.log(err);
-            if (err.response?.data?.TelNo_Of_The_Contact_Person && err.response.status === 400) {
-                setPhoneValidate(err.response.data.TelNo_Of_The_Contact_Person);
-            }
             setSubmit(false);
         }
     };
@@ -162,7 +163,7 @@ function UpdateCapacity() {
                                 value='yes'
                                 checked={isRegistered === true}
                                 onChange={() => handleRegistrationChange('yes')}
-                                required
+                               
                             />
                             <span>YES</span>
                         </li>
@@ -173,7 +174,7 @@ function UpdateCapacity() {
                                 value='no'
                                 checked={isRegistered === false}
                                 onChange={() => handleRegistrationChange('no')}
-                                required
+                              
                             />
                             <span>NO</span>
                         </li>
@@ -288,11 +289,7 @@ function UpdateCapacity() {
                                 onChange={handleChange}
                                 required
                             />
-                            {phoneValide.map(rule => {
-                                return (
-                                    <p className='text-danger' key={rule}>{rule}</p>
-                                )
-                            })}
+                           
                         </div>
 
                         <div className="mb-3">
