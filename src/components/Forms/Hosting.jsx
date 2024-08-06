@@ -133,7 +133,9 @@ function Hosting() {
 
                 <div className="mb-3">
                     <label htmlFor="max_apprentices" className="form-label">
-                        Maximum Number Of Apperentices that can be taken at the moment*
+                    What is the maximum number
+of apprentices that can be
+taken up at a time?*
                     </label>
                     <input
                         type="number"
@@ -147,7 +149,10 @@ function Hosting() {
 
                 <div className="mb-3">
                     <label htmlFor="support_description" className="form-label">
-                        Describe the form of support and associated payment you require per apprentice*
+                    State and describe the form of
+support you require per
+apprentice in order to provide
+the apprenticeship services*
                     </label>
                     <textarea
                         name="support_description"

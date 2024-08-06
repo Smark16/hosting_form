@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react'
-const post_address = 'https://institute-application-backend.onrender.com/form/post_physical'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 
+const post_address = 'https://institute-application-backend.onrender.com/form/post_physical'
 function PhysicalAdress() {
   const {user} = useContext(AuthContext)
   const navigate = useNavigate()

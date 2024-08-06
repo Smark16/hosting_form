@@ -191,9 +191,9 @@ ul {
   overflow-y: scroll;
 }
 
-.sidelists::-webkit-scrollbar {
-  width: 0px;
-}
+/* .sidelists::-webkit-scrollbar {
+  width: 10px;
+} */
 
 .sidelists .side_list {
   display: flex;

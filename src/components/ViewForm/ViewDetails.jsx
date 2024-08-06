@@ -29,17 +29,9 @@ function ViewDetails() {
     const [formData, setFormData] = useState('');
 
     const [QtnsEnv, setQtnsEnv] = useState({
-      environmentalWasteManagement: '',
-      environmentalConservation: '',
-      socialCommunityEngagement: '',
-      socialLocalSuppliers: '',
-      socialCSRInitiatives: '',
-      safetyHealthPolicy: '',
-      safetyCommunication: '',
-      safetyEmergencyProcedures: '',
-      safetySafeEnvironment: '',
-      healthHygieneSanitation: '',
-      healthWellnessPrograms: '',
+      Harrasment_Prevention: '',
+   provided_PPES: '',
+  Available_channels: '',
       user:user.user_id
     });
   
@@ -554,52 +546,18 @@ const handlePage = ()=>{
         <p className='whuu font-weight-bold' style={{ fontSize: '1.2rem', color: '#333' }}>Environmental, social, safety and Healthy questions</p>
         <ul className="list-unstyled">
               <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}> environmental WasteManagement :</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.environmentalWasteManagement}</span>
+                <h5 style={{ fontSize: '1rem', color: '#555' }}>Harrasment Prevention:</h5>
+                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.Harrasment_Prevention}</span>
               </li>
               <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}>environmental Conservation:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.environmentalConservation}</span>
+                <h5 style={{ fontSize: '1rem', color: '#555' }}>Provided PPEs:</h5>
+                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.provided_PPES}</span>
               </li>
               <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}>socialCommunity Engagement:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.socialCommunityEngagement}</span>
+                <h5 style={{ fontSize: '1rem', color: '#555' }}>Available Channels:</h5>
+                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.Available_channels}</span>
               </li>
-              <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}>socialLocal Suppliers:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.socialLocalSuppliers}</span>
-              </li>
-
-              <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}>social CSR Initiatives:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.socialCSRInitiatives}</span>
-              </li>
-
-              <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}>safety HealthPolicy:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.safetyHealthPolicy}</span>
-              </li>
-
-              <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}>safety Communication:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.safetyCommunication}</span>
-              </li>
-
-              <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}>safety Emergency Procedures:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.safetyEmergencyProcedures}</span>
-              </li>
-
-              <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}>health HygieneSanitation:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.healthHygieneSanitation}</span>
-              </li>
-
-              <li className="mb-2">
-                <h5 style={{ fontSize: '1rem', color: '#555' }}>health WellnessPrograms:</h5>
-                <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{QtnsEnv.healthWellnessPrograms}</span>
-              </li>
-
+             
             </ul>
                 <Link to={`/institute/update_env/${QtnsEnv.id}`} className='text-white Link'>
                 <button className='text-white p-2 text-center w-100 bg-success' type='submit' style={{ border: 'none', borderRadius: '4px' }}>
