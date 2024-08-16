@@ -16,6 +16,7 @@ function ViewDetails() {
     const [tradeData, setTradeData] = useState({
       targeted_trade: '',
       reason_for_partnership: '',
+      skills:[],
       enterprise_size: '',
       dev_stage: '',
       track_record: '',
@@ -410,7 +411,12 @@ const handlePage = ()=>{
                 <h5 style={{ fontSize: '1rem', color: '#555' }}>targeted_trade :</h5>
                 <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{tradeData.targeted_trade}</span>
               </li>
-               
+
+              <li className="mb-2">
+              <h5 style={{ fontSize: '1rem', color: '#555' }}>sector Skills :</h5>
+              <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{(tradeData.skills || []).join(', ')}</span>
+            </li>
+            
               <p className='whuu'>Courses Description</p>
                <table class="table table-striped table-hover">
   <thead>

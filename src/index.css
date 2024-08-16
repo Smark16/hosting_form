@@ -327,9 +327,11 @@ textarea{
   font-weight: bold;
   font-size: 20px;
 }
-.label_form label{
+.label_form .label{
   width: 100%;
+  display: flex;
 }
+
 .stage > div {
  display: flex;
  gap: 10px;

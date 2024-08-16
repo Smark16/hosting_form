@@ -5,10 +5,32 @@ import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const postTrade = 'https://institute-application-backend.onrender.com/form/post_trade'; // Update this URL to your actual endpoint
+const apiEndpoints = {
+  'Agriculture': 'http://127.0.0.1:8000/form/agriculture/',
+  'Food and Agro-processing': 'http://127.0.0.1:8000/form/agro-processing/',
+  'Creative and Performing Arts': 'http://127.0.0.1:8000/form/creative-performing-art/',
+  'Hotel and Catering': 'http://127.0.0.1:8000/form/hotel-hospitality/',
+  'Beauty and Cosmetology': 'http://127.0.0.1:8000/form/beauty-cosmetology/',
+  'Manufacturing': 'http://127.0.0.1:8000/form/manufacturing/',
+  'Construction': 'http://127.0.0.1:8000/form/construction/',
+  'Food Processing': 'http://127.0.0.1:8000/form/food-processing/',
+  'Social Services': 'http://127.0.0.1:8000/form/social-services/',
+  'Professional Technical Services': 'http://127.0.0.1:8000/form/professional-technical-services/',
+  'Engineering': 'http://127.0.0.1:8000/form/engineering/',
+  'Tourism and Hospitality': 'http://127.0.0.1:8000/form/tourism-hospitality/',
+  'Environment Protection': 'http://127.0.0.1:8000/form/environment-protection/',
+  'Fishing': 'http://127.0.0.1:8000/form/fishing/',
+  'ICT and Digital Media': 'http://127.0.0.1:8000/form/ict-digital-media/',
+  'Trade Retail and Wholesale': 'http://127.0.0.1:8000/form/trade-retail-wholesale/',
+  'Mechanical': 'http://127.0.0.1:8000/form/mechanical/',
+  'Tailoring and Textiles': 'http://127.0.0.1:8000/form/tailoring-textiles/'
+};
 
 function Trade() {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const [skillsData, setSkillsData] = useState({});
+  const [selectedSkills, setSelectedSkills] = useState([]);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [tradeData, setTradeData] = useState({
@@ -16,6 +38,7 @@ function Trade() {
     reason_for_partnership: '',
     enterprise_size: '',
     dev_stage: '',
+    skills:[],
     track_record: '',
     expertise: '',
     staff_mentoring: '',
@@ -26,6 +49,29 @@ function Trade() {
   });
   const [submit, setSubmit] = useState(false);
   const [errors, setErrors] = useState({});
+
+  const fetchSkills = async (trade) => {
+    const url = apiEndpoints[trade];
+    if (url) {
+      try {
+        const response = await axios.get(url);
+        setSkillsData(response.data);
+        // Clear selected skills when trade changes
+        setSelectedSkills([]);
+        setTradeData(prevData => ({ ...prevData, skills: [] }));
+      } catch (err) {
+        console.error('Error fetching skills data:', err);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (tradeData.targeted_trade) {
+      fetchSkills(tradeData.targeted_trade);
+    } else {
+      setSkillsData([]);
+    }
+  }, [tradeData.targeted_trade]);
 
   useEffect(() => {
     if (startDate && endDate) {
@@ -40,15 +86,36 @@ function Trade() {
     }
   }, [startDate, endDate]);
 
-  const handleSelect = (e) => {
-    const selected = e.target.value;
-    setTradeData({ ...tradeData, targeted_trade: selected });
+  
+  const handleSelect = e => {
+    const selectedTrade = e.target.value;
+    setTradeData(prevData => ({
+      ...prevData,
+      targeted_trade: selectedTrade,
+      skills: []
+    }));
   };
 
+  const handleSkillChange = e => {
+    const { value, checked } = e.target;
+    setSelectedSkills(prevSkills =>
+      checked ? [...prevSkills, value] : prevSkills.filter(skill => skill !== value)
+    );
+    setTradeData({...tradeData, skills:selectedSkills})
+  }
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setTradeData({ ...tradeData, [name]: value });
+    const { name, value, type, checked } = e.target;
+    // if (type === 'checkbox' && name === 'skills') {
+    //   const updatedSkills = checked
+    //     ? [...tradeData.skills, value]
+    //     : tradeData.skills.filter(skill => skill !== value);
+    //   setTradeData(prevData => ({ ...prevData, skills: updatedSkills }));
+    // } else {
+      setTradeData(prevData => ({ ...prevData, [name]: value }));
+    
   };
+console.log(tradeData)
 
   const handleCourseChange = (index, e) => {
     const { name, value } = e.target;
@@ -94,6 +161,7 @@ function Trade() {
             targeted_trade: '',
             reason_for_partnership: '',
             enterprise_size: '',
+            skills:"",
             dev_stage: '',
             track_record: '',
             expertise: '',
@@ -157,29 +225,17 @@ function Trade() {
       <form onSubmit={handleSubmit}>
         <div className="mb-3 label_form">
           <p className='whuu'>Trade/Sector of Operation</p>
-          <label htmlFor="targeted_trade" className="form-label">
-            Choose targeted priority trades Enterprise/Industry is involved in?*
-          </label>
-          <div>
-            <select onChange={handleSelect} className="form-control">
-              <option>Choose Enterprise</option>
-              <option value="Hotel and Catering">Hotel and Catering</option>
-              <option value="Food and Agro-processing">Food and Agro-processing</option>
-              <option value="Beauty and Cosmetology">Beauty and Cosmetology</option>
-              <option value="Tailoring and textiles">Tailoring and textiles</option>
-              <option value="Welding and Metal fabrication">Welding and Metal fabrication</option>
-              <option value="Electrical and electronics">Electrical and electronics</option>
-              <option value="Creative and Performing Arts">Creative and Performing Arts</option>
-              <option value="Construction">Construction</option>
-              <option value="Capentry">Capentry</option>
-              <option value="Mechanical">Mechanical</option>
-              <option value="ICT and Digital Media">ICT and Digital Media</option>
-              <option value="Leisure and Hospitality">Leisure and Hospitality</option>
-            </select>
+          <label htmlFor="targeted_trade">Choose targeted priority trades Enterprise/Industry is involved in?*</label>
+          <select name="targeted_trade" value={tradeData.targeted_trade} onChange={handleSelect} className="form-control" required>
+            <option value="">Select a sector</option>
+            {Object.keys(apiEndpoints).map(trade => (
+              <option key={trade} value={trade}>{trade}</option>
+            ))}
+          </select>
           </div>
-        </div>
-
+        
         {tradeData.targeted_trade && (
+          <>
           <div className="mb-3">
             <label htmlFor="sector_description" className="form-label">
               Describe more on the <b>{tradeData.targeted_trade}</b> sector(s) being offered*
@@ -191,6 +247,25 @@ function Trade() {
               onChange={handleChange}
               required
             />
+          </div>
+          </>
+        )}
+
+{tradeData.targeted_trade && skillsData.length > 0 && (
+          <div className="mb-3 label_form">
+            <p>Choose skills in <b>{tradeData.targeted_trade}</b> below</p>
+            {skillsData.map(skill => (
+              <div key={skill.id} className='label'>
+                <input
+                  type="checkbox"
+                  id={`skill-${skill.name}`}
+                  value={skill.name}
+                  checked={selectedSkills.includes(skill.name)}
+                  onChange={handleSkillChange}
+                />
+                <label htmlFor={`skill-${skill.name}`}>{skill.name}</label>
+              </div>
+            ))}
           </div>
         )}
 

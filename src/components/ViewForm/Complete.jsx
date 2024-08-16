@@ -13,7 +13,8 @@ const {user} = useContext(AuthContext)
       <p>This message is to confirm that your application for the Grow Host Instutions vacancy has been received successfully.
 A confirmation e-mail has been sent to:{user.email} Regards,
 GROW Team</p>
-<Link to='/' className='text-center'>Back to Login</Link>
+<Link to='/' className='text-center'>Back to Login</Link> 
+
     </div>
   )
 }
