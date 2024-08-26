@@ -534,6 +534,7 @@ form .btn:hover {
 /* HTML: <div class="loader"></div> */
 .loader {
   width: 50px;
+  margin-top: 100px;
   --b: 8px; 
   aspect-ratio: 1;
   border-radius: 50%;
