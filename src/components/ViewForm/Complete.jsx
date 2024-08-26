@@ -26,7 +26,7 @@ useEffect(()=>{
 },[])
   return (
     <>
-    {loading ? (<div className='loader'></div>) : (
+    {loading ? (<div className='loader text-center bg-primary'>loading....</div>) : (
       
     <div className='finish'>
         <span className="text-success d-flex text-center alert alert-success">
