@@ -339,7 +339,7 @@ console.log(tradeData)
           </div>
         ))}
 
-        <button type="button" onClick={addCourse} className='btn btn-primary'>
+        <button type="button" onClick={addCourse} className='text-white p-2 text-center w-100 btn-register'>
           Add Module
         </button>
         {errors.addCourse && <span className="text-danger">{errors.addCourse}</span>}

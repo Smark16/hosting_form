@@ -416,7 +416,7 @@ const handlePage = ()=>{
               <h5 style={{ fontSize: '1rem', color: '#555' }}>sector Skills :</h5>
               <span className="ellipsis" style={{ fontSize: '1rem', color: '#777' }}>{(tradeData.skills || []).join(', ')}</span>
             </li>
-            
+
               <p className='whuu'>Courses Description</p>
                <table class="table table-striped table-hover">
   <thead>
@@ -571,7 +571,7 @@ const handlePage = ()=>{
             </button>
                 </Link>
      </div>
-                <button className='btn btn-primary text-center' onClick={handlePage}>Finish Application</button>
+                <button className='btn-register text-center text-white p-2' onClick={handlePage}>Finish Application</button>
    </div>
     </>
   
